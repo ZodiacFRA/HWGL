@@ -1,34 +1,34 @@
-// Include standard headers
-#include <stdio.h>
-#include <stdlib.h>
-#include <vector>
-
-// Include GLEW
-#include <GL/glew.h>
-
-// Include GLFW
-#include <GLFW/glfw3.h>
-GLFWwindow* window;
-
-// Include GLM
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-using namespace glm;
-
 #include <shader.hpp>
 #include <texture.hpp>
 #include <controls.hpp>
 #include <objloader.hpp>
 #include <vboindexer.hpp>
 
+using namespace glm;
+
+GLFWwindow* window;
+
+
+// int main(int ac, char **av)
+// {
+// 	App app = App::get();  // Set Width and Height to 0 for fullscreen
+// 	if (app.init() == FAILURE) {
+// 		printf("%sApp init failed!%s\n", C_RED, C_RESET);
+// 		return FAILURE;
+// 	}
+// 	printf("%sApp init OK%s\n", C_BOLD_GREEN, C_RESET);
+// 	return app.run();
+// }
+
+
 
 int main( void )
 {
 	// Initialise GLFW
 	if (!glfwInit()) {
-		fprintf( stderr, "Failed to initialize GLFW\n" );
+		fprintf(stderr, "Failed to initialize GLFW\n");
 		getchar();
-		return -1;
+		return FAILURE;
 	}
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -37,12 +37,12 @@ int main( void )
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow( 1024, 768, "Tutorial 08 - Basic Shading", NULL, NULL);
+	window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, NULL, NULL);
 	if (window == NULL) {
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		getchar();
 		glfwTerminate();
-		return -1;
+		return FAILURE;
 	}
 	glfwMakeContextCurrent(window);
 
@@ -52,7 +52,7 @@ int main( void )
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		getchar();
 		glfwTerminate();
-		return -1;
+		return FAILURE;
 	}
 
 	// Ensure we can capture the escape key being pressed below
@@ -80,7 +80,9 @@ int main( void )
 	glBindVertexArray(VertexArrayID);
 
 	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders( "./shaders/StandardShading.vertexshader", "./shaders/StandardShading.fragmentshader");
+	GLuint programID = LoadShaders(
+		"./data/shaders/StandardShading.vertexshader",
+		"./data/shaders/StandardShading.fragmentshader");
 
 	// Get a handle for our "MVP" uniform
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
@@ -88,7 +90,7 @@ int main( void )
 	GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
 
 	// Load the texture
-	GLuint Texture = loadDDS("./src/uvmap.DDS");
+	GLuint Texture = loadDDS("./data/uvmap.DDS");
 
 	// Get a handle for our "myTextureSampler" uniform
 	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
@@ -97,7 +99,7 @@ int main( void )
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
-	bool res = loadOBJ("./src/untitled.obj", vertices, uvs, normals);
+	bool res = loadOBJ("./data/objs/icosphere.obj", vertices, uvs, normals);
 
 	// Load it into a VBO
 
