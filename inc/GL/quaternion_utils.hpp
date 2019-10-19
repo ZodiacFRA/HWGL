@@ -3,6 +3,8 @@
 
 #include "commonHWGL.hpp"
 
+using namespace glm;
+
 
 quat RotationBetweenVectors(vec3 start, vec3 dest);
 
