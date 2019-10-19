@@ -1,10 +1,6 @@
-#include <gtc/quaternion.hpp>
-#include <gtx/quaternion.hpp>
-#include <gtx/euler_angles.hpp>
-#include <gtx/norm.hpp>
-using namespace glm;
-
 #include "quaternion_utils.hpp"
+
+using namespace glm;
 
 
 // Returns a quaternion such that q*start = dest

@@ -1,10 +1,3 @@
-#include <vector>
-#include <stdio.h>
-#include <string>
-#include <cstring>
-
-#include <glm.hpp>
-
 #include "objloader.hpp"
 
 // Very, VERY simple OBJ loader.

@@ -1,6 +1,9 @@
 #ifndef TANGENTSPACE_HPP
 #define TANGENTSPACE_HPP
 
+#include "commonHWGL.hpp"
+
+
 void computeTangentBasis(
 	// inputs
 	std::vector<glm::vec3> & vertices,

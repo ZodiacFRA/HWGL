@@ -1,16 +1,7 @@
-#include <vector>
-#include <cstring>
+#include "text2D.hpp"
 
-#include <GL/glew.h>
-
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
 using namespace glm;
 
-#include "shader.hpp"
-#include "texture.hpp"
-
-#include "text2D.hpp"
 
 unsigned int Text2DTextureID;
 unsigned int Text2DVertexBufferID;
