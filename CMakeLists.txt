@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.14)
+project(GLScene)
+
+set(CMAKE_CXX_STANDARD 14)
+
+set(INC_DIR "./inc")
+set(SRC_DIR "./src")
+set(GL_DIR "./common")
+
+set(SRC_FILES
+        ${SRC_DIR}/tutorial08.cpp
+)
+
+set(GL_SRC_FILES
+        ${GL_DIR}/controls.cpp
+        ${GL_DIR}/objloader.cpp
+        ${GL_DIR}/quaternion_utils.cpp
+        ${GL_DIR}/shader.cpp
+        ${GL_DIR}/tangentspace.cpp
+        ${GL_DIR}/text2D.cpp
+        ${GL_DIR}/texture.cpp
+        ${GL_DIR}/vboindexer.cpp
+)
+
+find_package(OpenGL REQUIRED)
+find_package(GLEW REQUIRED)
+find_package(GLUT REQUIRED)
+
+include_directories(
+        "./Libraries/glm-0.9.9.6/glm"
+	${GL_DIR}
+        ${INC_DIR}
+        ${GLEW_INCLUDE_DIRS}
+        ${OPENGL_INCLUDE_DIRS}
+        ${GLUT_INCLUDE_DIRS}
+)
+
+add_executable(${PROJECT_NAME} ${SRC_FILES} ${GL_SRC_FILES})
+
+target_link_libraries(${PROJECT_NAME}
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${GLUT_LIBRARY}
+        glfw
+)
