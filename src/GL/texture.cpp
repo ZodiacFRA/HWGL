@@ -1,4 +1,4 @@
-#include "commonHWGL.hpp"
+#include "texture.hpp"
 
 
 GLuint loadBMP_custom(const char * imagepath){

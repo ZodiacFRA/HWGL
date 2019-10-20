@@ -10,6 +10,7 @@ set(GL_SRC_DIR "./src/GL")
 
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
+        ${SRC_DIR}/App.cpp
 )
 
 set(GL_SRC_FILES
