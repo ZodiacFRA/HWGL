@@ -12,6 +12,7 @@ set(SRC_FILES
         ${SRC_DIR}/main.cpp
         ${SRC_DIR}/App.cpp
         ${SRC_DIR}/AppInits.cpp
+        ${SRC_DIR}/AppControls.cpp
         ${SRC_DIR}/utils.cpp
 )
 

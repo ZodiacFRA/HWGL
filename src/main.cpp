@@ -1,9 +1,6 @@
 #include "App.hpp"
 
 
-GLFWwindow* window;
-
-
 int main(int ac, char **av)
 {
 	App app = App::get();

@@ -31,6 +31,12 @@
 
 #define BG_COLOR 0.27f, 0.28f, 0.34f, 0.0f
 
+#define FOV 45.0f
+#define CAM_MOV_SPEED 3.0f
+#define MOUSE_MOV_SPEED 0.005f
+#define H_ANGLE 3.14f
+#define V_ANGLE 0.0f
+
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"
 #define C_BOLD_GREEN "\x1b[1;32m"

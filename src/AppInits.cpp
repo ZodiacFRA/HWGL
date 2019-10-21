@@ -55,3 +55,22 @@ int App::initShaders()
 		"./data/shaders/StandardShading.fragmentshader");
 	return SUCCESS;
 }
+
+
+int App::initVertexArray()
+{
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+	return SUCCESS;
+}
+
+
+int App::initMatricesIDs()
+{
+	// Get a handle for our "MVP" uniform
+	GLuint _matrixID = glGetUniformLocation(_programID, "MVP");
+	GLuint _viewMatrixID = glGetUniformLocation(_programID, "V");
+	GLuint _modelMatrixID = glGetUniformLocation(_programID, "M");
+	return SUCCESS;
+}

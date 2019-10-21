@@ -2,6 +2,7 @@
 
 
 App::App()
+	: _hAngle(3.14f), _vAngle(0.0f), _camPos(glm::vec3( 0, 0, 5 ))
 {}
 
 App::~App()
@@ -16,6 +17,18 @@ App &App::get()
 	return app;
 }
 
+
+int App::init() {
+	int flag = SUCCESS;
+	flag &= initGLFW();
+	flag &= initGLEW();
+	flag &= initShaders();
+	flag &= initVertexArray();
+	flag &= initMatricesIDs();
+	return flag;
+}
+
+
 int App::run()
 {
 	do {
@@ -24,7 +37,7 @@ int App::run()
 		// Use our shader
 		glUseProgram(_programID);
 
-
+		drawObjects();
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
@@ -35,10 +48,19 @@ int App::run()
 	return SUCCESS;
 }
 
-int App::init() {
-	int flag = SUCCESS;
-	flag &= initGLFW();
-	flag &= initGLEW();
-	flag &= initShaders();
-	return flag;
+
+int App::drawObjects()
+{
+	// Compute the MVP matrix from keyboard and mouse input
+	if (!computeMatricesFromInputs())
+		return FAILURE;
+	glm::mat4 ModelMatrix = glm::mat4(1.0);
+	glm::mat4 MVP = _projectionMatrix * _viewMatrix * ModelMatrix;
+
+	// Send our transformation to the currently bound shader,
+	// in the "MVP" uniform
+	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+	glUniformMatrix4fv(_modelMatrixID, 1, GL_FALSE, &_viewMatrix[0][0]);
+	return SUCCESS;
 }
