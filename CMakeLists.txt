@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(HWGL)
+project(hwgl)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -11,17 +11,19 @@ set(GL_SRC_DIR "./src/GL")
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
         ${SRC_DIR}/App.cpp
+        ${SRC_DIR}/AppInits.cpp
+        ${SRC_DIR}/utils.cpp
 )
 
 set(GL_SRC_FILES
-        ${GL_SRC_DIR}/controls.cpp
-        ${GL_SRC_DIR}/objloader.cpp
-        ${GL_SRC_DIR}/quaternion_utils.cpp
+        #${GL_SRC_DIR}/controls.cpp
+        #${GL_SRC_DIR}/objloader.cpp
+        #${GL_SRC_DIR}/quaternion_utils.cpp
         ${GL_SRC_DIR}/shader.cpp
-        ${GL_SRC_DIR}/tangentspace.cpp
-        ${GL_SRC_DIR}/text2D.cpp
-        ${GL_SRC_DIR}/texture.cpp
-        ${GL_SRC_DIR}/vboindexer.cpp
+        #${GL_SRC_DIR}/tangentspace.cpp
+        #${GL_SRC_DIR}/text2D.cpp
+        #${GL_SRC_DIR}/texture.cpp
+        #${GL_SRC_DIR}/vboindexer.cpp
 )
 
 find_package(OpenGL REQUIRED)

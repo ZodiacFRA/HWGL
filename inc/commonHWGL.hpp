@@ -29,6 +29,8 @@
 #define WIN_HEIGHT 480
 #define WIN_NAME "HWGL"
 
+#define BG_COLOR 0.27f, 0.28f, 0.34f, 0.0f
+
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"
 #define C_BOLD_GREEN "\x1b[1;32m"
@@ -36,5 +38,7 @@
 #define C_YELLOW "\x1b[33m"
 #define C_BLUE "\x1b[36m"
 #define C_RESET "\x1b[0m"
+
+int printError(std::string msg);
 
 #endif //GLSCENE_COMMON
