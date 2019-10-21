@@ -3,6 +3,8 @@
 
 #include "commonHWGL.hpp"
 #include "shader.hpp"
+#include "Obj.hpp"
+
 
 class App {
 public:
@@ -17,10 +19,14 @@ public:
 	int initShaders();
 	int initVertexArray();
 	int initMatricesIDs();
+	int initLights();
 
 	int run();
 	int drawObjects();
 	int computeMatricesFromInputs();
+
+	// TODO move to scene tree
+	int drawLights();
 
 private:
 	GLFWwindow *_win;
@@ -30,6 +36,7 @@ private:
 	GLuint _modelMatrixID;
 	glm::mat4 _projectionMatrix;
 	glm::mat4 _viewMatrix;
+	GLuint _vertexArrayID;
 
 	// Initial position : on +Z
 	glm::vec3 _camPos;
@@ -37,6 +44,11 @@ private:
 	float _hAngle;
 	// Initial vertical angle : none
 	float _vAngle;
+
+	// TODO move to scene tree
+	GLuint _lightID;
+	glm::vec3 _lightPos;
+	Obj _tmpObj;
 };
 
 #endif //APP_HPP

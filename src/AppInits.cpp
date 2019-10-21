@@ -59,9 +59,9 @@ int App::initShaders()
 
 int App::initVertexArray()
 {
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+	_vertexArrayID;
+	glGenVertexArrays(1, &_vertexArrayID);
+	glBindVertexArray(_vertexArrayID);
 	return SUCCESS;
 }
 
@@ -72,5 +72,14 @@ int App::initMatricesIDs()
 	GLuint _matrixID = glGetUniformLocation(_programID, "MVP");
 	GLuint _viewMatrixID = glGetUniformLocation(_programID, "V");
 	GLuint _modelMatrixID = glGetUniformLocation(_programID, "M");
+	return SUCCESS;
+}
+
+
+int App::initLights()
+{
+	// Get a handle for our "LightPosition" uniform
+	glUseProgram(_programID);
+	_lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
 	return SUCCESS;
 }

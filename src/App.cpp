@@ -2,12 +2,14 @@
 
 
 App::App()
-	: _hAngle(3.14f), _vAngle(0.0f), _camPos(glm::vec3( 0, 0, 5 ))
+	: _hAngle(3.14f), _vAngle(0.0f), _camPos(glm::vec3( 0, 0, 5 )),
+	_lightPos(glm::vec3(4,4,4))
 {}
 
 App::~App()
 {
 	glDeleteProgram(_programID);
+	glDeleteVertexArrays(1, &_vertexArrayID);
 	glfwTerminate();
 }
 
@@ -25,6 +27,8 @@ int App::init() {
 	flag &= initShaders();
 	flag &= initVertexArray();
 	flag &= initMatricesIDs();
+	flag &= initLights();  // TODO move to scene tree
+	_tmpObj.load("./data/objs/icosphere.obj");
 	return flag;
 }
 
@@ -38,6 +42,7 @@ int App::run()
 		glUseProgram(_programID);
 
 		drawObjects();
+		drawLights();
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
@@ -60,7 +65,15 @@ int App::drawObjects()
 	// Send our transformation to the currently bound shader,
 	// in the "MVP" uniform
 	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
 	glUniformMatrix4fv(_modelMatrixID, 1, GL_FALSE, &_viewMatrix[0][0]);
+	glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+	_tmpObj.draw();
+	return SUCCESS;
+}
+
+
+int App::drawLights()
+{
+	glUniform3f(_lightID, _lightPos.x, _lightPos.y, _lightPos.z);
 	return SUCCESS;
 }

@@ -14,11 +14,12 @@ set(SRC_FILES
         ${SRC_DIR}/AppInits.cpp
         ${SRC_DIR}/AppControls.cpp
         ${SRC_DIR}/utils.cpp
+        ${SRC_DIR}/Obj.cpp
 )
 
 set(GL_SRC_FILES
         #${GL_SRC_DIR}/controls.cpp
-        #${GL_SRC_DIR}/objloader.cpp
+        ${GL_SRC_DIR}/objloader.cpp
         #${GL_SRC_DIR}/quaternion_utils.cpp
         ${GL_SRC_DIR}/shader.cpp
         #${GL_SRC_DIR}/tangentspace.cpp
