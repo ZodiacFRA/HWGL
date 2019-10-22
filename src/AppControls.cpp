@@ -26,7 +26,7 @@ int App::computeMatricesFromInputs()
 		sin(_vAngle),
 		cos(_vAngle) * cos(_hAngle)
 	);
-
+	// printVec3(direction);
 	// Right vector
 	glm::vec3 right = glm::vec3(
 		sin(_hAngle - 3.14f / 2.0f),
@@ -45,12 +45,17 @@ int App::computeMatricesFromInputs()
 		_camPos += right * deltaTime * CAM_MOV_SPEED;
 	if (glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS)
 		_camPos -= right * deltaTime * CAM_MOV_SPEED;
+	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS)
+		_camPos += up * deltaTime * CAM_MOV_SPEED;
+	if (glfwGetKey(_win, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+		_camPos -= up * deltaTime * CAM_MOV_SPEED;
 
 	// Projection matrix : fov, ratio, display range : 0.1 unit <-> 100 units
 	_projectionMatrix = glm::perspective(
 				glm::radians(FOV),
 				float(_winWidth) / float(_winHeight),
-				0.1f, 1000.0f);
+				0.01f, 1000.0f);
+
 	// Camera matrix
 	_viewMatrix = glm::lookAt(
 			_camPos,             // Camera is here

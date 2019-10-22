@@ -69,9 +69,9 @@ int App::initVertexArray()
 int App::initMatricesIDs()
 {
 	// Get a handle for our "MVP" uniform
-	GLuint _matrixID = glGetUniformLocation(_programID, "MVP");
-	GLuint _viewMatrixID = glGetUniformLocation(_programID, "V");
-	GLuint _modelMatrixID = glGetUniformLocation(_programID, "M");
+	_matrixID = glGetUniformLocation(_programID, "MVP");
+	_viewMatrixID = glGetUniformLocation(_programID, "V");
+	_modelMatrixID = glGetUniformLocation(_programID, "M");
 	return SUCCESS;
 }
 

@@ -3,8 +3,8 @@
 
 App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(3.14f),
-	_vAngle(-0.3f), _camPos(glm::vec3(0, 1, 1)),
-	_lightPos(glm::vec3(0, 3, 3))
+	_vAngle(0.0f), _camPos(glm::vec3(0, 0, 5)),
+	_lightPos(0, -4, 4)
 {}
 
 App::~App()
@@ -71,7 +71,6 @@ int App::drawObjects()
 
 	drawLights();
 	handleTexture();
-
 
 	_tmpObj.draw();
 	return SUCCESS;

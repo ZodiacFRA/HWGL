@@ -49,5 +49,6 @@
 #define C_RESET "\x1b[0m"
 
 int printError(std::string msg);
+int printVec3(glm::vec3 vec);
 
 #endif //GLSCENE_COMMON
