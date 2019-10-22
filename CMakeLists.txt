@@ -3,10 +3,10 @@ project(hwgl)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(INC_DIR "./inc")
-set(GL_INC_DIR "./inc/GL")
-set(SRC_DIR "./src")
-set(GL_SRC_DIR "./src/GL")
+set(INC_DIR "${PROJECT_SOURCE_DIR}/inc")
+set(GL_INC_DIR "${PROJECT_SOURCE_DIR}/inc/GL")
+set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
+set(GL_SRC_DIR "${PROJECT_SOURCE_DIR}/src/GL")
 
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
@@ -33,7 +33,7 @@ find_package(GLEW REQUIRED)
 find_package(GLUT REQUIRED)
 
 include_directories(
-        "./libraries/glm-0.9.9.6/glm"
+        "${PROJECT_SOURCE_DIR}/libraries/glm-0.9.9.6/glm"
 	${GL_INC_DIR}
         ${INC_DIR}
         ${GLEW_INCLUDE_DIRS}
