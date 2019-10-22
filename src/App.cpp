@@ -1,10 +1,10 @@
 #include "App.hpp"
 
 
-App::App()					// RIGHT / HEIGHT / FRONT
+App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(3.14f),
-	_vAngle(0.0f), _camPos(glm::vec3(0, 0, 5)),
-	_lightPos(glm::vec3(0, 0, 3))
+	_vAngle(-0.3f), _camPos(glm::vec3(0, 1, 1)),
+	_lightPos(glm::vec3(0, 3, 3))
 {}
 
 App::~App()
@@ -25,12 +25,12 @@ int App::init() {
 	int flag = SUCCESS;
 	flag &= initGLFW();
 	flag &= initGLEW();
-	flag &= initShaders();
 	flag &= initVertexArray();
+	flag &= initShaders();
 	flag &= initMatricesIDs();
-	flag &= initLights();  // TODO move to scene tree
 	flag &= initTexture();
 	_tmpObj.load("./data/objs/suzanne.obj");
+	flag &= initLights();  // TODO move to scene tree
 	return flag;
 }
 
@@ -43,9 +43,7 @@ int App::run()
 		// Use our shader
 		glUseProgram(_programID);
 
-		handleTexture();
 		drawObjects();
-		drawLights();
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
@@ -68,8 +66,13 @@ int App::drawObjects()
 	// Send our transformation to the currently bound shader,
 	// in the "MVP" uniform
 	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &MVP[0][0]);
-	// glUniformMatrix4fv(_modelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-	// glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &_viewMatrix[0][0]);
+	glUniformMatrix4fv(_modelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
+	glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &_viewMatrix[0][0]);
+
+	drawLights();
+	handleTexture();
+
+
 	_tmpObj.draw();
 	return SUCCESS;
 }

@@ -32,14 +32,12 @@
 #define BG_COLOR 0.27f, 0.28f, 0.34f, 0.0f
 
 #define FOV 45.0f
-#define CAM_MOV_SPEED 3.0f
-#define MOUSE_MOV_SPEED 0.005f
+#define CAM_MOV_SPEED 4.0f
+#define MOUSE_MOV_SPEED 0.0002f
 #define H_ANGLE 3.14f
 #define V_ANGLE 0.0f
 
-// #define VERTEX_SHADER "data/shaders/TransformVertexShader.vertexshader"
 #define VERTEX_SHADER "./data/shaders/StandardShading.vertexshader"
-// #define FRAGMENT_SHADER "./data/shaders/TextureFragmentShader.fragmentshader"
 #define FRAGMENT_SHADER "./data/shaders/StandardShading.fragmentshader"
 
 #define C_RED "\x1b[31m"
