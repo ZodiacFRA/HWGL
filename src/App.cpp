@@ -2,8 +2,9 @@
 
 
 App::App()					// RIGHT / HEIGHT / FRONT
-	: _hAngle(3.14f), _vAngle(0.0f), _camPos(glm::vec3(2, 0, 5)),
-	_lightPos(glm::vec3(4, 4, 4))
+	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(3.14f),
+	_vAngle(0.0f), _camPos(glm::vec3(0, 0, 5)),
+	_lightPos(glm::vec3(0, 0, 3))
 {}
 
 App::~App()
@@ -29,7 +30,7 @@ int App::init() {
 	flag &= initMatricesIDs();
 	flag &= initLights();  // TODO move to scene tree
 	flag &= initTexture();
-	_tmpObj.load("./data/objs/cube.obj");
+	_tmpObj.load("./data/objs/suzanne.obj");
 	return flag;
 }
 
@@ -88,5 +89,22 @@ int App::handleTexture()
 	glBindTexture(GL_TEXTURE_2D, _texture);
 	// Set our "myTextureSampler" sampler to use Texture Unit 0
 	glUniform1i(_textureID, 0);
+	return SUCCESS;
+}
+
+
+int App::handleAspectRatio()
+{
+	// Handles window resize, I successfully change the aspectRatio
+	// but not the window limits, even when calling glfwSetWindowSizeLimits
+	static int oldWinWidth = _winWidth;
+	static int oldWinHeight = _winHeight;
+	// Check if window as been resized
+	glfwGetWindowSize(_win, &_winWidth, &_winHeight);
+	if (_winWidth != oldWinWidth || _winHeight != oldWinHeight) {
+		glfwSetWindowSizeLimits(_win, GLFW_DONT_CARE, GLFW_DONT_CARE, GLFW_DONT_CARE, GLFW_DONT_CARE);
+		glfwSetWindowAspectRatio(_win, GLFW_DONT_CARE, GLFW_DONT_CARE);
+		oldWinWidth = _winWidth;
+	}
 	return SUCCESS;
 }

@@ -24,11 +24,11 @@ int App::computeMatricesFromInputs()
 	// oldYMouse = _yMouse;
 
 	// Reset mouse position for next frame
-	glfwSetCursorPos(_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	glfwSetCursorPos(_win, _winWidth / 2, _winHeight / 2);
 
 	// Compute new orientation
-	_hAngle += MOUSE_MOV_SPEED * float(WIN_WIDTH / 2 - _xMouse);
-	_vAngle += MOUSE_MOV_SPEED * float(WIN_HEIGHT / 2 - _yMouse);
+	_hAngle += MOUSE_MOV_SPEED * float(_winWidth / 2 - _xMouse);
+	_vAngle += MOUSE_MOV_SPEED * float(_winHeight / 2 - _yMouse);
 
 	// FOR DEBUG, inputs works fine
 	// printf("hAngle = %f, vAngle = %f\n", _hAngle, _vAngle);
@@ -62,8 +62,11 @@ int App::computeMatricesFromInputs()
 	// FOR DEBUG, inputs works fine
 	// std::cout << _camPos[0]  << " - " << _camPos[1] << " - " << _camPos[2] << '\n';
 
-	// Projection matrix : 4:3 ratio, display range : 0.1 unit <-> 100 units
-	_projectionMatrix = glm::perspective(glm::radians(FOV), 4.0f / 3.0f, 0.1f, 100.0f);
+	// Projection matrix : fov, ratio, display range : 0.1 unit <-> 100 units
+	_projectionMatrix = glm::perspective(
+				glm::radians(FOV),
+				float(_winWidth) / float(_winHeight),
+				0.1f, 100.0f);
 	// Camera matrix
 	_viewMatrix = glm::lookAt(
 			_camPos,             // Camera is here

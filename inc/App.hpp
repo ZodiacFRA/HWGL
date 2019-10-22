@@ -25,6 +25,7 @@ public:
 	int run();
 	int drawObjects();
 	int computeMatricesFromInputs();
+	int handleAspectRatio();
 
 	// TODO move to scene tree
 	int initLights();
@@ -33,6 +34,9 @@ public:
 	int initTexture();
 
 private:
+	int _winWidth;
+	int _winHeight;
+
 	GLFWwindow *_win;
 	GLuint _programID;
 	GLuint _matrixID;

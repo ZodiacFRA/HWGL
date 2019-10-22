@@ -25,8 +25,8 @@
 #define FAILURE 0
 #define SUCCESS 1
 
-#define WIN_WIDTH 640
-#define WIN_HEIGHT 480
+#define WIN_WIDTH 1920/2
+#define WIN_HEIGHT 1050
 #define WIN_NAME "HWGL"
 
 #define BG_COLOR 0.27f, 0.28f, 0.34f, 0.0f
@@ -37,7 +37,9 @@
 #define H_ANGLE 3.14f
 #define V_ANGLE 0.0f
 
+// #define VERTEX_SHADER "data/shaders/TransformVertexShader.vertexshader"
 #define VERTEX_SHADER "./data/shaders/StandardShading.vertexshader"
+// #define FRAGMENT_SHADER "./data/shaders/TextureFragmentShader.fragmentshader"
 #define FRAGMENT_SHADER "./data/shaders/StandardShading.fragmentshader"
 
 #define C_RED "\x1b[31m"

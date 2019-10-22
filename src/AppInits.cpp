@@ -12,7 +12,7 @@ int App::initGLFW()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
-	_win = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, NULL, NULL);
+	_win = glfwCreateWindow(_winWidth, _winHeight, WIN_NAME, NULL, NULL);
 	if (_win == NULL)
 		return printError("Failed to open GLFW window");
 	glfwMakeContextCurrent(_win);
@@ -23,7 +23,7 @@ int App::initGLFW()
 	glfwSetInputMode(_win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	// Set the mouse at the center of the screen
 	glfwPollEvents();
-	glfwSetCursorPos(_win, WIN_WIDTH/2, WIN_HEIGHT/2);
+	glfwSetCursorPos(_win, _winWidth/2, _winHeight/2);
 
 	// Set background color
 	glClearColor(BG_COLOR);
