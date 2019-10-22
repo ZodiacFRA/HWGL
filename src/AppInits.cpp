@@ -50,9 +50,7 @@ int App::initGLEW()
 int App::initShaders()
 {
 	// Create and compile our GLSL program from the shaders
-	_programID = LoadShaders(
-		"./data/shaders/StandardShading.vertexshader",
-		"./data/shaders/StandardShading.fragmentshader");
+	_programID = LoadShaders(VERTEX_SHADER, FRAGMENT_SHADER);
 	return SUCCESS;
 }
 
@@ -81,5 +79,15 @@ int App::initLights()
 	// Get a handle for our "LightPosition" uniform
 	glUseProgram(_programID);
 	_lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
+	return SUCCESS;
+}
+
+
+int App::initTexture()
+{
+	// Load the texture
+	_texture = loadDDS("./data/uvmap.DDS");
+	// Get a handle for our "myTextureSampler" uniform
+	_textureID  = glGetUniformLocation(_programID, "myTextureSampler");
 	return SUCCESS;
 }

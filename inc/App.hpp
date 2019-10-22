@@ -1,8 +1,10 @@
 #ifndef APP_HPP
 #define APP_HPP
 
-#include "commonHWGL.hpp"
 #include "shader.hpp"
+#include "texture.hpp"
+
+#include "commonHWGL.hpp"
 #include "Obj.hpp"
 
 
@@ -27,6 +29,8 @@ public:
 
 	// TODO move to scene tree
 	int drawLights();
+	int handleTexture();
+	int initTexture();
 
 private:
 	GLFWwindow *_win;
@@ -38,17 +42,19 @@ private:
 	glm::mat4 _viewMatrix;
 	GLuint _vertexArrayID;
 
-	// Initial position : on +Z
-	glm::vec3 _camPos;
-	// Initial horizontal angle : toward -Z
-	float _hAngle;
-	// Initial vertical angle : none
-	float _vAngle;
+	// Camera
+	glm::vec3 _camPos;  // Initial position : on +Z
+	float _hAngle;	// Initial horizontal angle : toward -Z
+	float _vAngle; 	// Initial vertical angle : none
+	double _xMouse;
+	double _yMouse;
 
 	// TODO move to scene tree
 	GLuint _lightID;
 	glm::vec3 _lightPos;
 	Obj _tmpObj;
+	GLuint _texture;
+	GLuint _textureID;
 };
 
 #endif //APP_HPP

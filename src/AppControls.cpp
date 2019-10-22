@@ -10,16 +10,28 @@ int App::computeMatricesFromInputs()
 	double currentTime = glfwGetTime();
 	float deltaTime = float(currentTime - lastTime);
 
+	// FOR DEBUG, inputs works fine
+	// static double oldXMouse = _xMouse;
+	// static double oldYMouse = _yMouse;
+
 	// Get mouse position
-	double xpos, ypos;
-	glfwGetCursorPos(_win, &xpos, &ypos);
+	glfwGetCursorPos(_win, &_xMouse, &_yMouse);
+
+	// FOR DEBUG, inputs works fine
+	// if (_xMouse != oldXMouse || _yMouse != oldYMouse)
+	// 	printf("oldXMouse = %f, newXMouse = %f\noldYMouse = %f, newYMouse = %f\n", oldXMouse, _xMouse, oldYMouse, _yMouse);
+	// oldXMouse = _xMouse;
+	// oldYMouse = _yMouse;
 
 	// Reset mouse position for next frame
 	glfwSetCursorPos(_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 
 	// Compute new orientation
-	_hAngle += MOUSE_MOV_SPEED * float(WIN_WIDTH / 2 - xpos );
-	_vAngle   += MOUSE_MOV_SPEED * float(WIN_HEIGHT / 2 - ypos );
+	_hAngle += MOUSE_MOV_SPEED * float(WIN_WIDTH / 2 - _xMouse);
+	_vAngle += MOUSE_MOV_SPEED * float(WIN_HEIGHT / 2 - _yMouse);
+
+	// FOR DEBUG, inputs works fine
+	// printf("hAngle = %f, vAngle = %f\n", _hAngle, _vAngle);
 
 	// Direction : Spherical coordinates to Cartesian coordinates conversion
 	glm::vec3 direction(
@@ -46,6 +58,9 @@ int App::computeMatricesFromInputs()
 		_camPos += right * deltaTime * CAM_MOV_SPEED;
 	if (glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS)
 		_camPos -= right * deltaTime * CAM_MOV_SPEED;
+
+	// FOR DEBUG, inputs works fine
+	// std::cout << _camPos[0]  << " - " << _camPos[1] << " - " << _camPos[2] << '\n';
 
 	// Projection matrix : 4:3 ratio, display range : 0.1 unit <-> 100 units
 	_projectionMatrix = glm::perspective(glm::radians(FOV), 4.0f / 3.0f, 0.1f, 100.0f);

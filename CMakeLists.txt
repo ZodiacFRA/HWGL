@@ -24,7 +24,7 @@ set(GL_SRC_FILES
         ${GL_SRC_DIR}/shader.cpp
         #${GL_SRC_DIR}/tangentspace.cpp
         #${GL_SRC_DIR}/text2D.cpp
-        #${GL_SRC_DIR}/texture.cpp
+        ${GL_SRC_DIR}/texture.cpp
         #${GL_SRC_DIR}/vboindexer.cpp
 )
 

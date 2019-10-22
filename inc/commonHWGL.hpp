@@ -37,6 +37,9 @@
 #define H_ANGLE 3.14f
 #define V_ANGLE 0.0f
 
+#define VERTEX_SHADER "./data/shaders/StandardShading.vertexshader"
+#define FRAGMENT_SHADER "./data/shaders/StandardShading.fragmentshader"
+
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"
 #define C_BOLD_GREEN "\x1b[1;32m"

@@ -70,7 +70,7 @@ int Obj::draw()
 	);
 
 	// Draw the triangles !
-	glDrawArrays(GL_TRIANGLES, 0, _vertices.size() );
+	glDrawArrays(GL_TRIANGLES, 0, _vertices.size());
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

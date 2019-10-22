@@ -1,35 +1,49 @@
-#include <shader.hpp>
-#include <texture.hpp>
-#include <controls.hpp>
-#include <objloader.hpp>
-#include <vboindexer.hpp>
+// Include standard headers
+#include <stdio.h>
+#include <stdlib.h>
+#include <vector>
 
-using namespace glm;
+// Include GLEW
+#include <GL/glew.h>
 
+// Include GLFW
+#include <GLFW/glfw3.h>
 GLFWwindow* window;
 
+// Include GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+using namespace glm;
+
+#include <common/shader.hpp>
+#include <common/texture.hpp>
+#include <common/controls.hpp>
+#include <common/objloader.hpp>
+#include <common/vboindexer.hpp>
 
 int main( void )
 {
 	// Initialise GLFW
-	if (!glfwInit()) {
-		fprintf(stderr, "Failed to initialize GLFW\n");
+	if( !glfwInit() )
+	{
+		fprintf( stderr, "Failed to initialize GLFW\n" );
 		getchar();
-		return FAILURE;
+		return -1;
 	}
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, NULL, NULL);
-	if (window == NULL) {
+	window = glfwCreateWindow( 1024, 768, "Tutorial 08 - Basic Shading", NULL, NULL);
+	if( window == NULL ){
 		fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
 		getchar();
 		glfwTerminate();
-		return FAILURE;
+		return -1;
 	}
 	glfwMakeContextCurrent(window);
 
@@ -39,7 +53,7 @@ int main( void )
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		getchar();
 		glfwTerminate();
-		return FAILURE;
+		return -1;
 	}
 
 	// Ensure we can capture the escape key being pressed below
@@ -52,7 +66,7 @@ int main( void )
 	glfwSetCursorPos(window, 1024/2, 768/2);
 
 	// Dark blue background
-	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -67,9 +81,7 @@ int main( void )
 	glBindVertexArray(VertexArrayID);
 
 	// Create and compile our GLSL program from the shaders
-	GLuint programID = LoadShaders(
-		"./data/shaders/StandardShading.vertexshader",
-		"./data/shaders/StandardShading.fragmentshader");
+	GLuint programID = LoadShaders( "StandardShading.vertexshader", "StandardShading.fragmentshader" );
 
 	// Get a handle for our "MVP" uniform
 	GLuint MatrixID = glGetUniformLocation(programID, "MVP");
@@ -77,7 +89,7 @@ int main( void )
 	GLuint ModelMatrixID = glGetUniformLocation(programID, "M");
 
 	// Load the texture
-	GLuint = loadDDS("./data/uvmap.DDS");
+	GLuint Texture = loadDDS("uvmap.DDS");
 
 	// Get a handle for our "myTextureSampler" uniform
 	GLuint TextureID  = glGetUniformLocation(programID, "myTextureSampler");
@@ -86,7 +98,7 @@ int main( void )
 	std::vector<glm::vec3> vertices;
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
-	bool res = loadOBJ("./data/objs/icosphere.obj", vertices, uvs, normals);
+	bool res = loadOBJ("suzanne.obj", vertices, uvs, normals);
 
 	// Load it into a VBO
 
@@ -188,7 +200,7 @@ int main( void )
 
 	} // Check if the ESC key was pressed or the window was closed
 	while( glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-	glfwWindowShouldClose(window) == 0 );
+		glfwWindowShouldClose(window) == 0 );
 
 	// Cleanup VBO and shader
 	glDeleteBuffers(1, &vertexbuffer);
