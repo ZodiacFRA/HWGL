@@ -3,7 +3,7 @@
 
 App::App()					// RIGHT / HEIGHT / FRONT
 	: _hAngle(3.14f), _vAngle(0.0f), _camPos(glm::vec3(2, 0, 5)),
-	_lightPos(glm::vec3(0, 0, 0))
+	_lightPos(glm::vec3(4, 4, 4))
 {}
 
 App::~App()
@@ -28,6 +28,7 @@ int App::init() {
 	flag &= initVertexArray();
 	flag &= initMatricesIDs();
 	flag &= initLights();  // TODO move to scene tree
+	flag &= initTexture();
 	_tmpObj.load("./data/objs/cube.obj");
 	return flag;
 }

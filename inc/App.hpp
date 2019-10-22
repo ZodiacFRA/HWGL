@@ -21,13 +21,13 @@ public:
 	int initShaders();
 	int initVertexArray();
 	int initMatricesIDs();
-	int initLights();
 
 	int run();
 	int drawObjects();
 	int computeMatricesFromInputs();
 
 	// TODO move to scene tree
+	int initLights();
 	int drawLights();
 	int handleTexture();
 	int initTexture();

@@ -86,7 +86,7 @@ int App::initLights()
 int App::initTexture()
 {
 	// Load the texture
-	_texture = loadDDS("./data/uvmap.DDS");
+	_texture = loadDDS("./data/objs/uvmap.DDS");
 	// Get a handle for our "myTextureSampler" uniform
 	_textureID  = glGetUniformLocation(_programID, "myTextureSampler");
 	return SUCCESS;
