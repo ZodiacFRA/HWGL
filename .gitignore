@@ -6,3 +6,5 @@ Makefile
 HWGL
 hwgl
 doc
+objs
+textures

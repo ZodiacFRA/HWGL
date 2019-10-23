@@ -2,8 +2,8 @@
 
 
 App::App()			// RIGHT / HEIGHT / FRONT
-	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(3.14f),
-	_vAngle(0.0f), _camPos(glm::vec3(0, 0, 5)),
+	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(2.95f), // 3.14
+	_vAngle(-0.3f), _camPos(glm::vec3(-2, 3, 10)),
 	_lightPos(-1, 4, 2)
 {}
 

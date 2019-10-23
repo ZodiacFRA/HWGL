@@ -27,6 +27,7 @@ private:
 	GLuint _elementBuffer;
 
 	int loadFromObjFile(FILE *file);
+	int drawBuffer(GLuint buffer, int attribute, int size);
 };
 
 #endif

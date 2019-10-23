@@ -62,10 +62,15 @@ int Obj::loadFromObjFile(FILE *file)
 			tmp_vertices.push_back(vertex);
 		} else if (!strcmp(lineID, "vt")) {
 			glm::vec2 uv;
-			fscanf(file, "%f %f\n", &uv.x, &uv.y );
+			fscanf(file, "%f %f\n", &uv.x, &uv.y);
 			// Invert V coordinate since we will only use DDS textures
 			// which are inverted. Remove if you want to use TGA or BMP loaders.
 			// uv.y = -uv.y;
+
+			//TESTS
+			uv.x = uv.x;// + 0.09f;
+			uv.y = uv.y;
+
 			tmp_uvs.push_back(uv);
 		} else if (!strcmp(lineID, "vn")) {
 			glm::vec3 normal;

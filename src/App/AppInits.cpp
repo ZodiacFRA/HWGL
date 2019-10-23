@@ -87,9 +87,11 @@ int App::initLights()
 
 int App::initTexture()
 {
-	// Load the texture
-	// _texture = loadDDS("./data/textures/uvmap.DDS");
+	// If texture done with gimp:
+	// export BMP as 24bits without colour space information
 	_texture = loadBMP_custom("./data/textures/uvCube.bmp");
+	// _texture = loadDDS("./data/textures/uvmap.DDS");
+
 	// Get a handle for our "myTextureSampler" uniform
 	_textureID  = glGetUniformLocation(_programID, "myTextureSampler");
 	return SUCCESS;
