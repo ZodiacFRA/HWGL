@@ -1,19 +1,13 @@
 #include "Obj.hpp"
 
 
-Obj::~Obj()
-{
-	// Clear VBO
-	glDeleteBuffers(1, &_verticesBuffer);
-	glDeleteBuffers(1, &_uvBuffer);
-	glDeleteBuffers(1, &_normalBuffer);
-	glDeleteBuffers(1, &_elementBuffer);
-}
-
-
 int Obj::loadObj(std::string filepath)
 {
-	if (!loadFromObjFile(filepath.c_str(), _vertices, _uvs, _normals))
+	printf("Loading OBJ file from %s...\n", filepath.c_str());
+	FILE *file = fopen(filepath.c_str(), "r");
+	if(!file)
+		return printError("Impossible to open file!");
+	if (!loadFromObjFile(file))
 		return FAILURE;
 
 	indexVBO(_vertices, _uvs, _normals, _indices,
@@ -48,79 +42,12 @@ int Obj::loadObj(std::string filepath)
 }
 
 
-int Obj::draw()
+int Obj::loadFromObjFile(FILE *file)
 {
-	// 1rst attribute buffer : vertices
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, _verticesBuffer);
-	glVertexAttribPointer(
-		0,                  // attribute
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-
-	// 2nd attribute buffer : UVs
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, _uvBuffer);
-	glVertexAttribPointer(
-		1,                                // attribute
-		2,                                // size
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
-	);
-
-	// 3rd attribute buffer : normals
-	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ARRAY_BUFFER, _normalBuffer);
-	glVertexAttribPointer(
-		2,                                // attribute
-		3,                                // size
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
-	);
-
-	// Index buffer
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _elementBuffer);
-
-	// Draw the triangles !
-	glDrawElements(
-		GL_TRIANGLES,      // mode
-		_indices.size(),    // count
-		GL_UNSIGNED_SHORT,   // type
-		(void*)0           // element array buffer offset
-	);
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
-	return SUCCESS;
-}
-
-
-
-int Obj::loadFromObjFile(
-	const char * path,
-	std::vector<glm::vec3> &out_vertices,
-	std::vector<glm::vec2> &out_uvs,
-	std::vector<glm::vec3> &out_normals)
-{
-	printf("Loading OBJ file %s...\n", path);
-
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 	std::vector<glm::vec3> tmp_vertices;
 	std::vector<glm::vec2> tmp_uvs;
 	std::vector<glm::vec3> tmp_normals;
-
-	FILE * file = fopen(path, "r");
-	if(!file)
-		return printError("Impossible to open file!");
 
 	while(42) {
 		char lineID[128];
@@ -178,9 +105,9 @@ int Obj::loadFromObjFile(
 		glm::vec2 uv = tmp_uvs[ uvIndex-1 ];
 		glm::vec3 normal = tmp_normals[ normalIndex-1 ];
 		// Put the attributes in buffers
-		out_vertices.push_back(vertex);
-		out_uvs     .push_back(uv);
-		out_normals .push_back(normal);
+		_vertices.push_back(vertex);
+		_uvs     .push_back(uv);
+		_normals .push_back(normal);
 	}
 
 	fclose(file);
