@@ -5,39 +5,31 @@ int Shader::loadTexture(const char *t_path, bool enableFiltering)
 {
 	// If texture done with gimp:
 	// export BMP as 24bits without colour space information
-	printf("Reading image %s\n", t_path);
+	printf("Loading image %s\n", t_path);
 
-	// Data read from the header of the BMP file
+	// Informations from the header of the BMP file
 	unsigned char header[54];
 	unsigned int dataPos;
 	unsigned int imageSize;
 	unsigned int width, height;
-	// Actual RGB data
-	unsigned char * data;
+	// RGB data
+	unsigned char *data;
 
-	// Open the file
 	FILE * file = fopen(t_path,"rb");
 	if (!file)
 		return printError("Impossible to open file!");
 
-
 	// Read the header, i.e. the 54 first bytes
-
 	// If less than 54 bytes are read, problem
-	if ( fread(header, 1, 54, file)!=54 ){
+	if (fread(header, 1, 54, file)!=54 ||
+		// A BMP files always begins with "BM"
+	   	(header[0]!='B' || header[1]!='M') ||
+		// Make sure this is a 24bpp file
+		*(int*)&(header[0x1E])!=0 || *(int*)&(header[0x1C])!=24) {
 		printError("Not a correct BMP file\n");
 		fclose(file);
 		return FAILURE;
 	}
-	// A BMP files always begins with "BM"
-	if ( header[0]!='B' || header[1]!='M' ){
-		printError("Not a correct BMP file\n");
-		fclose(file);
-		return FAILURE;
-	}
-	// Make sure this is a 24bpp file
-	if ( *(int*)&(header[0x1E])!=0  )         {printf("Not a correct BMP file\n");    fclose(file); return 0;}
-	if ( *(int*)&(header[0x1C])!=24 )         {printf("Not a correct BMP file\n");    fclose(file); return 0;}
 
 	// Read the information about the image
 	dataPos    = *(int*)&(header[0x0A]);
@@ -46,10 +38,10 @@ int Shader::loadTexture(const char *t_path, bool enableFiltering)
 	height     = *(int*)&(header[0x16]);
 
 	// Some BMP files are misformatted, guess missing information
-	if (imageSize==0)
-		imageSize=width*height*3; // 3 : one byte for each Red, Green and Blue component
-	if (dataPos==0)
-		dataPos=54; // The BMP header is done that way
+	if (imageSize==0) // 3 : one byte for each Red, Green and Blue component
+		imageSize=width*height*3;
+	if (dataPos==0)  // The BMP header is done that way
+		dataPos=54;
 
 	// Create a buffer
 	data = new unsigned char [imageSize];
