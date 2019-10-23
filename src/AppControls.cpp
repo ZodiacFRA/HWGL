@@ -37,17 +37,17 @@ int App::computeMatricesFromInputs()
 	glm::vec3 up = glm::cross(right, direction);
 
 	// Handle key inputs for cam movement
-	if (glfwGetKey(_win, GLFW_KEY_UP) == GLFW_PRESS)
+	if (glfwGetKey(_win, GLFW_KEY_W) == GLFW_PRESS)
 		_camPos += direction * deltaTime * CAM_MOV_SPEED;
-	if (glfwGetKey(_win, GLFW_KEY_DOWN) == GLFW_PRESS)
+	if (glfwGetKey(_win, GLFW_KEY_S) == GLFW_PRESS)
 		_camPos -= direction * deltaTime * CAM_MOV_SPEED;
-	if (glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_PRESS)
+	if (glfwGetKey(_win, GLFW_KEY_D) == GLFW_PRESS)
 		_camPos += right * deltaTime * CAM_MOV_SPEED;
-	if (glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS)
+	if (glfwGetKey(_win, GLFW_KEY_A) == GLFW_PRESS)
 		_camPos -= right * deltaTime * CAM_MOV_SPEED;
 	if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS)
 		_camPos += up * deltaTime * CAM_MOV_SPEED;
-	if (glfwGetKey(_win, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+	if (glfwGetKey(_win, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		_camPos -= up * deltaTime * CAM_MOV_SPEED;
 
 	// Projection matrix : fov, ratio, display range : 0.1 unit <-> 100 units

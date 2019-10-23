@@ -11,7 +11,7 @@ Obj::~Obj()
 }
 
 
-int Obj::load(std::string filepath)
+int Obj::loadObjFile(std::string filepath)
 {
 	if (!loadOBJ(filepath.c_str(), _vertices, _uvs, _normals))
 		return FAILURE;

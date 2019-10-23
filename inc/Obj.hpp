@@ -8,7 +8,7 @@
 
 class Obj {
 public:
-	int load(std::string filepath);
+	int loadObjFile(std::string filepath);
 	virtual ~Obj ();
 
 	int draw();

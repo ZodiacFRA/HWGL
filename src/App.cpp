@@ -4,7 +4,7 @@
 App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(3.14f),
 	_vAngle(0.0f), _camPos(glm::vec3(0, 0, 5)),
-	_lightPos(0, -4, 4)
+	_lightPos(-1, 4, 2)
 {}
 
 App::~App()
@@ -29,7 +29,7 @@ int App::init() {
 	flag &= initShaders();
 	flag &= initMatricesIDs();
 	flag &= initTexture();
-	_tmpObj.load("./data/objs/suzanne.obj");
+	_tmpObj.loadObjFile("./data/objs/cube.obj");
 	flag &= initLights();  // TODO move to scene tree
 	return flag;
 }
