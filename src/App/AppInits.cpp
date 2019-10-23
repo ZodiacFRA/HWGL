@@ -51,27 +51,20 @@ int App::initGLEW()
 
 int App::initShaders()
 {
-	// Create and compile our GLSL program from the shaders
-	_programID = LoadShaders(VERTEX_SHADER, FRAGMENT_SHADER);
+	Shader *basicShader = new Shader();
+	basicShader->loadShaders("./data/shaders/StandardShading.vertexshader",
+				"./data/shaders/StandardShading.fragmentshader"
+	);
+	basicShader->loadTexture("./data/textures/uvCube.bmp");
+	_shaders.emplace("basicShader", basicShader);
 	return SUCCESS;
 }
 
 
 int App::initVertexArray()
 {
-	_vertexArrayID;
 	glGenVertexArrays(1, &_vertexArrayID);
 	glBindVertexArray(_vertexArrayID);
-	return SUCCESS;
-}
-
-
-int App::initMatricesIDs()
-{
-	// Get a handle for our "MVP" uniform
-	_matrixID = glGetUniformLocation(_programID, "MVP");
-	_viewMatrixID = glGetUniformLocation(_programID, "V");
-	_modelMatrixID = glGetUniformLocation(_programID, "M");
 	return SUCCESS;
 }
 
@@ -79,20 +72,7 @@ int App::initMatricesIDs()
 int App::initLights()
 {
 	// Get a handle for our "LightPosition" uniform
-	glUseProgram(_programID);
-	_lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
-	return SUCCESS;
-}
-
-
-int App::initTexture()
-{
-	// If texture done with gimp:
-	// export BMP as 24bits without colour space information
-	_texture = loadBMP_custom("./data/textures/uvCube.bmp");
-	// _texture = loadDDS("./data/textures/uvmap.DDS");
-
-	// Get a handle for our "myTextureSampler" uniform
-	_textureID  = glGetUniformLocation(_programID, "myTextureSampler");
+	// glUseProgram(_programID);
+	// _lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
 	return SUCCESS;
 }

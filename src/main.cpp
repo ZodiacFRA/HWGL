@@ -1,7 +1,7 @@
 #include "App.hpp"
 
 
-int main(int ac, char **av)
+int main()
 {
 	App app = App::get();
 	if (app.init() == FAILURE)

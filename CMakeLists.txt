@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 project(hwgl)
 
+# TODO add all compilation flags
+
 set(CMAKE_CXX_STANDARD 14)
 
 set(INC_DIR "${PROJECT_SOURCE_DIR}/inc")
@@ -11,6 +13,7 @@ set(GL_SRC_DIR "${PROJECT_SOURCE_DIR}/src/GL")
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
 	${SRC_DIR}/utils.cpp
+	${SRC_DIR}/Shader.cpp
 
         ${SRC_DIR}/App/App.cpp
         ${SRC_DIR}/App/AppInits.cpp
@@ -21,7 +24,6 @@ set(SRC_FILES
 )
 
 set(GL_SRC_FILES
-	${GL_SRC_DIR}/shader.cpp
 	${GL_SRC_DIR}/texture.cpp
 	${GL_SRC_DIR}/vboindexer.cpp
 )
@@ -38,6 +40,7 @@ include_directories(
         ${OPENGL_INCLUDE_DIRS}
         ${GLUT_INCLUDE_DIRS}
 )
+set(CMAKE_CXX_FLAGS "-W -Wextra -Wall -Werror -std=c++11")
 
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${GL_SRC_FILES})
 

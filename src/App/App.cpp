@@ -2,14 +2,17 @@
 
 
 App::App()			// RIGHT / HEIGHT / FRONT
-	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT), _hAngle(2.95f), // 3.14
-	_vAngle(-0.3f), _camPos(glm::vec3(-2, 3, 10)),
-	_lightPos(-1, 4, 2)
+	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
+	_camPos(glm::vec3(-2, 3, 10)), _hAngle(2.95f), // 3.14
+	_vAngle(-0.3f), _lightPos(-1, 4, 2), _tmpObj("test")
 {}
 
 App::~App()
 {
-	glDeleteProgram(_programID);
+	for (auto it : _shaders) {
+		if (it.second)
+			delete it.second;
+	}
 	glDeleteVertexArrays(1, &_vertexArrayID);
 	glfwTerminate();
 }
@@ -27,9 +30,10 @@ int App::init() {
 	flag &= initGLEW();
 	flag &= initVertexArray();
 	flag &= initShaders();
-	flag &= initMatricesIDs();
-	flag &= initTexture();
+
 	_tmpObj.loadObj("./data/objs/cubeUV.obj");
+	_tmpObj.setShader(_shaders["basicShader"]);
+
 	flag &= initLights();  // TODO move to scene tree
 	return flag;
 }
@@ -40,10 +44,14 @@ int App::run()
 	do {
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// Use our shader
-		glUseProgram(_programID);
 
-		drawObjects();
+	// for _tmpObj in objects:
+		// Compute the MVP matrix from keyboard and mouse input
+		if (!this->computeMatricesFromInputs())
+			return FAILURE;
+
+		// drawLights();
+		_tmpObj.draw(_projectionMatrix, _viewMatrix);
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
@@ -55,42 +63,9 @@ int App::run()
 }
 
 
-int App::drawObjects()
-{
-	// Compute the MVP matrix from keyboard and mouse input
-	if (!this->computeMatricesFromInputs())
-		return FAILURE;
-	glm::mat4 ModelMatrix = glm::mat4(1.0);
-	glm::mat4 MVP = _projectionMatrix * _viewMatrix * ModelMatrix;
-
-	// Send our transformation to the currently bound shader,
-	// in the "MVP" uniform
-	glUniformMatrix4fv(_matrixID, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(_modelMatrixID, 1, GL_FALSE, &ModelMatrix[0][0]);
-	glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &_viewMatrix[0][0]);
-
-	drawLights();
-	handleTexture();
-
-	_tmpObj.draw();
-	return SUCCESS;
-}
-
-
 int App::drawLights()
 {
 	glUniform3f(_lightID, _lightPos.x, _lightPos.y, _lightPos.z);
-	return SUCCESS;
-}
-
-
-int App::handleTexture()
-{
-	// Bind our texture in Texture Unit 0
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, _texture);
-	// Set our "myTextureSampler" sampler to use Texture Unit 0
-	glUniform1i(_textureID, 0);
 	return SUCCESS;
 }
 

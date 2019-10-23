@@ -1,6 +1,10 @@
 #include "Obj.hpp"
 
 
+Obj::Obj(std::string name)
+	: _name(name), _modelMatrix(1.0)
+{}
+
 Obj::~Obj()
 {
 	// Clear VBOs
@@ -8,27 +12,14 @@ Obj::~Obj()
 	glDeleteBuffers(1, &_uvBuffer);
 	glDeleteBuffers(1, &_normalBuffer);
 	glDeleteBuffers(1, &_elementBuffer);
+	// Shaders are destroyed by App
 }
 
 
-int Obj::drawBuffer(GLuint buffer, int attribute, int size)
+int Obj::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
-	glEnableVertexAttribArray(attribute);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glVertexAttribPointer(
-		attribute,          // attribute
-		size,               // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-	return SUCCESS;
-}
+	_shader->setupDraw(projectionMatrix, viewMatrix, _modelMatrix);
 
-
-int Obj::draw()
-{
 	drawBuffer(_verticesBuffer, 0, 3);
 	drawBuffer(_uvBuffer, 1, 2);
 	drawBuffer(_normalBuffer, 2, 3);
@@ -46,5 +37,22 @@ int Obj::draw()
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+
+	return SUCCESS;
+}
+
+
+int Obj::drawBuffer(GLuint buffer, int attribute, int size)
+{
+	glEnableVertexAttribArray(attribute);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glVertexAttribPointer(
+		attribute,          // attribute
+		size,               // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
 	return SUCCESS;
 }
