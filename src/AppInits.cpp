@@ -89,7 +89,7 @@ int App::initTexture()
 {
 	// Load the texture
 	// _texture = loadDDS("./data/textures/uvmap.DDS");
-	_texture = loadBMP_custom("./data/textures/gradient.bmp");
+	_texture = loadBMP_custom("./data/textures/uvCube.bmp");
 	// Get a handle for our "myTextureSampler" uniform
 	_textureID  = glGetUniformLocation(_programID, "myTextureSampler");
 	return SUCCESS;

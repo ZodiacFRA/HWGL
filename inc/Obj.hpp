@@ -2,13 +2,12 @@
 #define OBJ_HPP
 
 #include "commonHWGL.hpp"
-#include "objloader.hpp"
 #include "vboindexer.hpp"
 
 
 class Obj {
 public:
-	int loadObjFile(std::string filepath);
+	int loadObj(std::string filepath);
 	virtual ~Obj ();
 
 	int draw();
@@ -27,6 +26,11 @@ private:
 	GLuint _normalBuffer;
 	GLuint _elementBuffer;
 
+	int loadFromObjFile(const char *path,
+		std::vector<glm::vec3> &out_vertices,
+		std::vector<glm::vec2> &out_uvs,
+		std::vector<glm::vec3> &out_normals
+	);
 };
 
 #endif

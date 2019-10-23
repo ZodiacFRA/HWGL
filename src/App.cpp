@@ -29,7 +29,7 @@ int App::init() {
 	flag &= initShaders();
 	flag &= initMatricesIDs();
 	flag &= initTexture();
-	_tmpObj.loadObjFile("./data/objs/cube.obj");
+	_tmpObj.loadObj("./data/objs/cubeUV.obj");
 	flag &= initLights();  // TODO move to scene tree
 	return flag;
 }
