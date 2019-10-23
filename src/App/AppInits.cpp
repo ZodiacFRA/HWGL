@@ -55,7 +55,7 @@ int App::initShaders()
 	basicShader->loadShaders("./data/shaders/StandardShading.vertexshader",
 				"./data/shaders/StandardShading.fragmentshader"
 	);
-	basicShader->loadTexture("./data/textures/uvCube.bmp");
+	basicShader->loadTexture("./data/textures/uvCube.bmp", false);
 	_shaders.emplace("basicShader", basicShader);
 	return SUCCESS;
 }

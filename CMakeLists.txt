@@ -13,7 +13,6 @@ set(GL_SRC_DIR "${PROJECT_SOURCE_DIR}/src/GL")
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
 	${SRC_DIR}/utils.cpp
-	${SRC_DIR}/Shader.cpp
 
         ${SRC_DIR}/App/App.cpp
         ${SRC_DIR}/App/AppInits.cpp
@@ -21,10 +20,12 @@ set(SRC_FILES
 
 	${SRC_DIR}/Obj/Obj.cpp
 	${SRC_DIR}/Obj/ObjLoaders.cpp
+
+	${SRC_DIR}/Shader/Shader.cpp
+	${SRC_DIR}/Shader/ShaderLoaders.cpp
 )
 
 set(GL_SRC_FILES
-	${GL_SRC_DIR}/texture.cpp
 	${GL_SRC_DIR}/vboindexer.cpp
 )
 
