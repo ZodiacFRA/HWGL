@@ -25,17 +25,14 @@ App::~App()
 
 int App::setupScene()
 {
-	Obj *tmpObj = _objsLibrary["suzanneMe"];
-	// CHECK IF OBJ EXISTS
-	Shader *tmpShader = _shaders["StandardShading"];
-	// CHECK IF SHADER EXISTS
-	Texture *tmpTexture = _textureLibrary["suzUvPaint"];
-	// CHECK IF TEXTURE EXISTS
-	_sceneTree.insert("", "suzanneNode", tmpObj, tmpShader, tmpTexture);
+	// Node name, Obj name, Shader name, Texture name, Position
+	createNode("", "suzanneNode", "suzanneMe", "StandardShading",
+		"suzUvPaint", glm::vec3(0, 0, 0));
 
-	tmpShader = _shaders["colored"];
-	_sceneTree.insert("", "terrain2", tmpObj, tmpShader, tmpTexture);
-	_sceneTree.translateNode("terrain2", glm::vec3(1, 0, 0));
+	//
+	// tmpShader = _shaders["colored"];
+	// _sceneTree.insert("", "terrain2", tmpObj, tmpShader, tmpTexture);
+	// _sceneTree.translateNode("terrain2", glm::vec3(1, 0, 0));
 
 	// tmpObj = _objsLibrary["suzanne"];
 	// CHECK IF OBJ EXISTS

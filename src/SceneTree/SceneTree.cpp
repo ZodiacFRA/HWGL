@@ -15,19 +15,17 @@ SceneTree::~SceneTree()
 }
 
 
-int SceneTree::insert(std::string parentName, std::string name,
-			Obj *obj, Shader *shader, Texture *texture)
+int SceneTree::insert(std::string parentName, std::string name, Obj *obj,
+			Shader *shader, Texture *texture, glm::vec3 position)
 {
 	Node *parentNode;
 	if (parentName == "")  // TERNAIRE
 		parentNode = &_root;
 	else
 		parentNode = _nodes[parentName];
-	// if (parentNode == _nodes.end())
-	// 	return printError("Parent node not found!");
 	Node *newNode = new Node;
 	newNode->name = name;
-	newNode->modelMatrix = glm::mat4(1.0);
+	newNode->modelMatrix = glm::translate(glm::mat4(1.0), position);
 	newNode->parent = parentNode;
 	newNode->obj = obj;
 	newNode->shader = shader;
@@ -44,8 +42,9 @@ int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 		it.second->shader->setupDraw(projectionMatrix, viewMatrix,
 					it.second->modelMatrix);
 		// SHOULD ADD ALL PARENTS TRANSFORMATIONS AS WELL!
-		it.second->texture->setupDraw(
-					it.second->shader->getProgramID());
+		if (it.second->texture)
+			it.second->texture->setupDraw(
+				it.second->shader->getProgramID());
 		it.second->obj->draw();
 	}
 	return SUCCESS;

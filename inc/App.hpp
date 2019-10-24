@@ -19,11 +19,16 @@ public:
 private:
 	int initGLFW();
 	int initGLEW();
+	int initVertexArray();
+
 	int initShaders();
 	int loadObjsLibrary();
 	int loadTextureLibrary();
-	int initVertexArray();
+
 	int setupScene();
+	int createNode(std::string parentNodeName, std::string nodeName,
+			std::string objName, std::string shaderName,
+			std::string textureName, glm::vec3 position);
 
 	int computeMatricesFromInputs();
 

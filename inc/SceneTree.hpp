@@ -31,8 +31,8 @@ public:
 	SceneTree();
 	virtual ~SceneTree();
 	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
-	int insert(std::string parentName, std::string name,
-			Obj *obj, Shader *shader, Texture *texture);
+	int insert(std::string parentName, std::string name, Obj *obj,
+			Shader *shader, Texture *texture, glm::vec3 position);
 	Node *getNode(std::string nodeName);
 
 	int translateNode(std::string nodeName, glm::vec3 tM);

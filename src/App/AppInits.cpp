@@ -6,9 +6,11 @@ int App::init() {
 	flag &= initGLFW();
 	flag &= initGLEW();
 	flag &= initVertexArray();
+
 	flag &= initShaders();
 	flag &= loadObjsLibrary();
 	flag &= loadTextureLibrary();
+
 	flag &= setupScene();
 
 	// flag &= initLights();  // TODO move to scene tree
@@ -122,5 +124,21 @@ int App::initLights()
 	// Get a handle for our "LightPosition" uniform
 	// glUseProgram(_programID);
 	// _lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
+	return SUCCESS;
+}
+
+
+int App::createNode(std::string parentNodeName, std::string nodeName,
+		std::string objName, std::string shaderName,
+		std::string textureName, glm::vec3 position)
+{
+	Obj *tmpObj = _objsLibrary[objName];
+	// CHECK IF OBJ EXISTS
+	Shader *tmpShader = _shaders[shaderName];
+	// CHECK IF SHADER EXISTS
+	Texture *tmpTexture = _textureLibrary[textureName];
+	// CHECK IF TEXTURE EXISTS
+	_sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
+				tmpTexture, position);
 	return SUCCESS;
 }
