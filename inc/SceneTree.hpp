@@ -38,6 +38,8 @@ public:
 	int translateNode(std::string nodeName, glm::vec3 tM);
 	int setNodePosition(std::string nodeName, glm::vec3 pM);
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);
+	// DOES NOT WORK
+	int setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM);
 
 private:
 	Node _root;

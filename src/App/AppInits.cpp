@@ -23,6 +23,10 @@ int App::loadTextureLibrary()
 	Texture *tmpTex = new Texture();
 	tmpTex->loadTexture("./data/textures/suzUvPaint.bmp", false);
 	_textureLibrary.emplace("suzUvPaint", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/floortexture.bmp", false);
+	_textureLibrary.emplace("floortexture", tmpTex);
 	return SUCCESS;
 }
 
@@ -40,6 +44,10 @@ int App::loadObjsLibrary()
 	tmpObj = new Obj("terrain");
 	tmpObj->loadObj("./data/objs/terrain.obj");
 	_objsLibrary.emplace("terrain", tmpObj);
+
+	tmpObj = new Obj("plane");
+	tmpObj->loadObj("./data/objs/plane.obj");
+	_objsLibrary.emplace("plane", tmpObj);
 	return SUCCESS;
 }
 
@@ -58,6 +66,12 @@ int App::initShaders()
 				"./data/shaders/colored/fs.glsl"
 	);
 	_shaders.emplace("colored", tmpShader);
+
+	tmpShader = new Shader();
+	tmpShader->loadShaders("./data/shaders/StandardShadingNoSpec/vs.glsl",
+				"./data/shaders/StandardShadingNoSpec/fs.glsl"
+	);
+	_shaders.emplace("StandardShadingNoSpec", tmpShader);
 
 	return SUCCESS;
 }
@@ -132,12 +146,28 @@ int App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
 		std::string textureName, glm::vec3 position)
 {
-	Obj *tmpObj = _objsLibrary[objName];
-	// CHECK IF OBJ EXISTS
-	Shader *tmpShader = _shaders[shaderName];
-	// CHECK IF SHADER EXISTS
-	Texture *tmpTexture = _textureLibrary[textureName];
-	// CHECK IF TEXTURE EXISTS
+	Obj *tmpObj = NULL;
+	auto it = _objsLibrary.find(objName);
+	if (it != _objsLibrary.end())
+		tmpObj = it->second;
+	else
+		return printError("Can't create node (Obj does not exist)");
+
+	Shader *tmpShader = NULL;
+	auto it1 = _shaders.find(shaderName);
+	if (it1 != _shaders.end())
+		tmpShader = it1->second;
+	else
+		return printError("Can't create node (Shader does not exist)");
+
+	Texture *tmpTexture = NULL;
+	if (textureName != "") {
+		auto it2 = _textureLibrary.find(textureName);
+		if (it2 != _textureLibrary.end())
+			tmpTexture = it2->second;
+		else
+			return printError("Can't create node (Texture does not exist)");
+	}
 	_sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
 				tmpTexture, position);
 	return SUCCESS;

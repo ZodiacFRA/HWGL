@@ -18,6 +18,8 @@ SceneTree::~SceneTree()
 int SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position)
 {
+	if (_nodes.find(name) != _nodes.end())
+		return printError("Node name already taken");
 	Node *parentNode;
 	if (parentName == "")  // TERNAIRE
 		parentNode = &_root;

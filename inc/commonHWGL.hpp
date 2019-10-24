@@ -33,6 +33,8 @@
 
 #define BG_COLOR 0.27f, 0.28f, 0.34f, 0.0f
 
+#define FPS_PRINT_INTERVAL 4.0
+
 #define FOV 40.0f
 #define CAM_MOV_SPEED 5.0f
 #define MOUSE_MOV_SPEED 0.0002f

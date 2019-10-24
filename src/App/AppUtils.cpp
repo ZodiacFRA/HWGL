@@ -23,7 +23,7 @@ void App::handleTime()
 	_currentTime = glfwGetTime();
 	_nbFrames++;
 	double deltaTime = _currentTime - _lastTime;
-	if (deltaTime >= 2.0) {
+	if (deltaTime >= FPS_PRINT_INTERVAL) {
 		printf("%f fps\n", double(_nbFrames) / deltaTime);
 		_nbFrames = 0;
 		_lastTime += deltaTime;
