@@ -6,11 +6,13 @@
 class Shader {
 public:
 	int loadShaders(const char *v_path, const char *f_path);
-	int loadTexture(const char *t_path, bool enableFiltering);
 	virtual ~Shader();
 
 	int setupDraw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix,
 			glm::mat4 modelMatrix);
+
+	// GETTERS
+	GLuint getProgramID() { return _programID; }
 
 private:
 	GLuint _programID;
@@ -19,12 +21,8 @@ private:
 	GLuint _modelMatrixID;
 	GLuint _viewMatrixID;
 
-	GLuint _texture;
-	GLuint _textureID;
-
 	int loadShader(GLuint shaderID, const char *path);
 	int initMatricesIDs();
-
 };
 
 #endif

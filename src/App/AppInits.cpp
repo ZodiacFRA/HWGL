@@ -1,15 +1,39 @@
 #include "App.hpp"
 
 
+int App::init() {
+	int flag = SUCCESS;
+	flag &= initGLFW();
+	flag &= initGLEW();
+	flag &= initVertexArray();
+	flag &= initShaders();
+	flag &= loadObjsLibrary();
+	flag &= loadTextureLibrary();
+	flag &= setupScene();
+
+	// flag &= initLights();  // TODO move to scene tree
+	return flag;
+}
+
+
+int App::loadTextureLibrary()
+{
+	Texture *tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/suzUvPaint.bmp", false);
+	_textureLibrary.emplace("suzUvPaint", tmpTex);
+	return SUCCESS;
+}
+
+
 int App::loadObjsLibrary()
 {
 	Obj *tmpObj = new Obj("cubeUV"); // Name the mesh itself
 	tmpObj->loadObj("./data/objs/cubeUV.obj");
-	_objsLibrary.emplace("cube", tmpObj);
+	_objsLibrary.emplace("cubeUV", tmpObj);
 
 	tmpObj = new Obj("suzanne");
-	tmpObj->loadObj("./data/objs/suzanne.obj");
-	_objsLibrary.emplace("suzanne", tmpObj);
+	tmpObj->loadObj("./data/objs/suzanneMe.obj");
+	_objsLibrary.emplace("suzanneMe", tmpObj);
 
 	tmpObj = new Obj("terrain");
 	tmpObj->loadObj("./data/objs/terrain.obj");
@@ -20,12 +44,19 @@ int App::loadObjsLibrary()
 
 int App::initShaders()
 {
-	Shader *basicShader = new Shader();
-	basicShader->loadShaders("./data/shaders/StandardShading.vertexshader",
-				"./data/shaders/StandardShading.fragmentshader"
+	Shader *tmpShader = new Shader();
+	tmpShader->loadShaders("./data/shaders/StandardShading/vs.glsl",
+				"./data/shaders/StandardShading/fs.glsl"
 	);
-	basicShader->loadTexture("./data/textures/Landscape.bmp", false);
-	_shaders.emplace("textured", basicShader);
+	_shaders.emplace("StandardShading", tmpShader);
+
+
+	tmpShader = new Shader();
+	tmpShader->loadShaders("./data/shaders/colored/vs.glsl",
+				"./data/shaders/colored/fs.glsl"
+	);
+	_shaders.emplace("colored", tmpShader);
+
 	return SUCCESS;
 }
 

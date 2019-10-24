@@ -23,34 +23,24 @@ App::~App()
 }
 
 
-int App::init() {
-	int flag = SUCCESS;
-	flag &= initGLFW();
-	flag &= initGLEW();
-	flag &= initVertexArray();
-	flag &= initShaders();
-	flag &= loadObjsLibrary();
-	flag &= setupScene();
-
-	// flag &= initLights();  // TODO move to scene tree
-	return flag;
-}
-
-
 int App::setupScene()
 {
-	Obj *tmpObj = _objsLibrary["terrain"];
+	Obj *tmpObj = _objsLibrary["suzanneMe"];
 	// CHECK IF OBJ EXISTS
-	Shader *tmpShader = _shaders["textured"];
+	Shader *tmpShader = _shaders["StandardShading"];
 	// CHECK IF SHADER EXISTS
-	_sceneTree.insert("", "terrain", tmpObj, tmpShader);
-	_sceneTree.insert("", "terrain2", tmpObj, tmpShader);
-	_sceneTree.translateNode("terrain", glm::vec3(2, 0, 0));
+	Texture *tmpTexture = _textureLibrary["suzUvPaint"];
+	// CHECK IF TEXTURE EXISTS
+	_sceneTree.insert("", "suzanneNode", tmpObj, tmpShader, tmpTexture);
+
+	tmpShader = _shaders["colored"];
+	_sceneTree.insert("", "terrain2", tmpObj, tmpShader, tmpTexture);
+	_sceneTree.translateNode("terrain2", glm::vec3(1, 0, 0));
 
 	// tmpObj = _objsLibrary["suzanne"];
-	// // CHECK IF OBJ EXISTS
-	// tmpShader = _shaders["textured"];
-	// // CHECK IF SHADER EXISTS
+	// CHECK IF OBJ EXISTS
+	// tmpShader = _shaders["StandardShading"];
+	// CHECK IF SHADER EXISTS
 	// _sceneTree.insert("", "1stSuzanne", tmpObj, tmpShader);
 	// _sceneTree.translateNode("1stSuzanne", glm::vec3(1, 0, 0));
 	return SUCCESS;
@@ -60,21 +50,14 @@ int App::setupScene()
 int App::run()
 {
 	do {
-		_currentTime = glfwGetTime();
-		_nbFrames++;
-		// If last prinf() was more than 1sec ago
-		if (_currentTime - _lastTime >= 2.0) {
-			printf("%f ms / frame\n", 2000.0 / double(_nbFrames));
-			_nbFrames = 0;
-			_lastTime += 2.0;
-		}
+		handleTime();
 
-		_lightPos = glm::vec3(rand() % 4 - 2, 0, 0);
-		drawLights();
+		// drawLights();
 
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		_sceneTree.rotateNode("suzanneNode", 1.0, glm::vec3(0, 1, 0));
 		// Compute the MVP matrix from keyboard and mouse input
 		if (!this->computeMatricesFromInputs())
 			return FAILURE;
@@ -94,22 +77,5 @@ int App::run()
 int App::drawLights()
 {
 	glUniform3f(_lightID, _lightPos.x, _lightPos.y, _lightPos.z);
-	return SUCCESS;
-}
-
-
-int App::handleAspectRatio()
-{
-	// Handles window resize, I successfully change the aspectRatio
-	// but not the window limits, even when calling glfwSetWindowSizeLimits
-	static int oldWinWidth = _winWidth;
-	static int oldWinHeight = _winHeight;
-	// Check if window as been resized
-	glfwGetWindowSize(_win, &_winWidth, &_winHeight);
-	if (_winWidth != oldWinWidth || _winHeight != oldWinHeight) {
-		glfwSetWindowSizeLimits(_win, GLFW_DONT_CARE, GLFW_DONT_CARE, GLFW_DONT_CARE, GLFW_DONT_CARE);
-		glfwSetWindowAspectRatio(_win, GLFW_DONT_CARE, GLFW_DONT_CARE);
-		oldWinWidth = _winWidth;
-	}
 	return SUCCESS;
 }

@@ -1,5 +1,6 @@
 #include "Shader.hpp"
 
+
 Shader::~Shader()
 {
 	glDeleteProgram(_programID);
@@ -21,13 +22,6 @@ int Shader::setupDraw(glm::mat4 projectionMatrix,
 	glUniformMatrix4fv(_viewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
 
 	// LIGHT ?
-
-	// Texture handling
-	// Bind our texture in Texture Unit 0
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, _texture);
-	// Set our "myTextureSampler" sampler to use Texture Unit 0
-	glUniform1i(_textureID, 0);
 
 	return SUCCESS;
 }

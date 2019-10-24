@@ -4,6 +4,8 @@
 #include "commonHWGL.hpp"
 #include "Obj.hpp"
 #include "Shader.hpp"
+#include "Texture.hpp"
+
 
 struct Node;
 struct Node {
@@ -15,6 +17,7 @@ struct Node {
 
 	Obj *obj;
 	Shader *shader;
+	Texture *texture;
 };
 
 
@@ -29,8 +32,12 @@ public:
 	virtual ~SceneTree();
 	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	int insert(std::string parentName, std::string name,
-			Obj *obj, Shader *shader);
-	int translateNode(std::string nodeName, glm::vec3 translationMatrix);
+			Obj *obj, Shader *shader, Texture *texture);
+	Node *getNode(std::string nodeName);
+
+	int translateNode(std::string nodeName, glm::vec3 tM);
+	int setNodePosition(std::string nodeName, glm::vec3 pM);
+	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);
 
 private:
 	Node _root;

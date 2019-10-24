@@ -13,17 +13,21 @@ set(GL_SRC_DIR "${PROJECT_SOURCE_DIR}/src/GL")
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
 	${SRC_DIR}/utils.cpp
-	${SRC_DIR}/SceneTree.cpp
+	${SRC_DIR}/Texture.cpp
 
         ${SRC_DIR}/App/App.cpp
         ${SRC_DIR}/App/AppInits.cpp
         ${SRC_DIR}/App/AppControls.cpp
+        ${SRC_DIR}/App/AppUtils.cpp
 
 	${SRC_DIR}/Obj/Obj.cpp
 	${SRC_DIR}/Obj/ObjLoaders.cpp
 
 	${SRC_DIR}/Shader/Shader.cpp
 	${SRC_DIR}/Shader/ShaderLoaders.cpp
+
+	${SRC_DIR}/SceneTree/SceneTree.cpp
+	${SRC_DIR}/SceneTree/SceneTreeTransformations.cpp
 )
 
 set(GL_SRC_FILES

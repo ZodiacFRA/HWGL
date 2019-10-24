@@ -7,8 +7,17 @@ int printError(std::string msg)
 	return FAILURE;
 }
 
-int printVec3(glm::vec3 vec)
+
+auto &getGen()
 {
-	std::cout << vec[0]  << " - " << vec[1] << " - " << vec[2] << std::endl;
-	return FAILURE;
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	return gen;
+}
+
+
+float getRandomFloat(float min, float max)
+{
+	std::uniform_real_distribution<float> randFloat(min, max);
+        return randFloat(getGen());
 }

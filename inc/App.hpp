@@ -5,6 +5,7 @@
 #include "Obj.hpp"
 #include "Shader.hpp"
 #include "SceneTree.hpp"
+#include "Texture.hpp"
 
 
 class App {
@@ -16,14 +17,17 @@ public:
 	int run();
 
 private:
-	int loadObjsLibrary();
 	int initGLFW();
 	int initGLEW();
 	int initShaders();
+	int loadObjsLibrary();
+	int loadTextureLibrary();
 	int initVertexArray();
 	int setupScene();
 
 	int computeMatricesFromInputs();
+
+	void handleTime();
 	int handleAspectRatio();
 
 	// Utils
@@ -49,6 +53,7 @@ private:
 
 	std::map<std::string, Shader *> _shaders; // TODO rename to _shadersLibrary
 	std::map<std::string, Obj *> _objsLibrary;
+	std::map<std::string, Texture *> _textureLibrary;
 	SceneTree _sceneTree;
 
 	GLuint _lightID;

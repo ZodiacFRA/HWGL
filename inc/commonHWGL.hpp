@@ -10,13 +10,15 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <random>
 #include <vector>
 #include <map>
 
 #include <GL/glew.h>
 #include <gtc/matrix_transform.hpp>
-#include <gtc/quaternion.hpp>
 #include <gtx/euler_angles.hpp>
+#include <gtx/string_cast.hpp>
+#include <gtc/quaternion.hpp>
 #include <gtx/quaternion.hpp>
 #include <gtx/norm.hpp>
 #include <GLFW/glfw3.h>
@@ -46,6 +48,6 @@
 #define C_RESET "\x1b[0m"
 
 int printError(std::string msg);
-int printVec3(glm::vec3 vec);
+float getRandomFloat(float min, float max);
 
 #endif //GLSCENE_COMMON
