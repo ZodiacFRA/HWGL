@@ -4,8 +4,8 @@
 App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
 	_lastTime(glfwGetTime()), _nbFrames(0),
-	_camPos(glm::vec3(-2, 3, 10)), _hAngle(2.95f), // 3.14
-	_vAngle(-0.3f), _lightPos(-1, 4, 2)
+	_camPos(glm::vec3(0, 3, 5)), _hAngle(3.14f), // 3.14
+	_vAngle(-0.5f), _lightPos(0, 5, 0)
 {}
 
 App::~App()
@@ -39,18 +39,20 @@ int App::init() {
 
 int App::setupScene()
 {
-	Obj *tmpObj = _objsLibrary["cube"];
+	Obj *tmpObj = _objsLibrary["terrain"];
 	// CHECK IF OBJ EXISTS
 	Shader *tmpShader = _shaders["textured"];
 	// CHECK IF SHADER EXISTS
-	_sceneTree.insert("", "1stCube", tmpObj, tmpShader);
+	_sceneTree.insert("", "terrain", tmpObj, tmpShader);
+	_sceneTree.insert("", "terrain2", tmpObj, tmpShader);
+	_sceneTree.translateNode("terrain", glm::vec3(2, 0, 0));
 
-	tmpObj = _objsLibrary["suzanne"];
-	// CHECK IF OBJ EXISTS
-	tmpShader = _shaders["textured"];
-	// CHECK IF SHADER EXISTS
-	_sceneTree.insert("", "1stSuzanne", tmpObj, tmpShader);
-	_sceneTree.translateNode("1stSuzanne", glm::vec3(1, 0, 0));
+	// tmpObj = _objsLibrary["suzanne"];
+	// // CHECK IF OBJ EXISTS
+	// tmpShader = _shaders["textured"];
+	// // CHECK IF SHADER EXISTS
+	// _sceneTree.insert("", "1stSuzanne", tmpObj, tmpShader);
+	// _sceneTree.translateNode("1stSuzanne", glm::vec3(1, 0, 0));
 	return SUCCESS;
 }
 
@@ -61,11 +63,14 @@ int App::run()
 		_currentTime = glfwGetTime();
 		_nbFrames++;
 		// If last prinf() was more than 1sec ago
-		if (_currentTime - _lastTime >= 1.0) {
-			printf("%f ms / frame\n", 1000.0 / double(_nbFrames));
+		if (_currentTime - _lastTime >= 2.0) {
+			printf("%f ms / frame\n", 2000.0 / double(_nbFrames));
 			_nbFrames = 0;
-			_lastTime += 1.0;
+			_lastTime += 2.0;
 		}
+
+		_lightPos = glm::vec3(rand() % 4 - 2, 0, 0);
+		drawLights();
 
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

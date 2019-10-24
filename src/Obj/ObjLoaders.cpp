@@ -58,7 +58,7 @@ int Obj::loadFromObjFile(FILE *file)
 
 		if (!strcmp(lineID, "v")) {
 			glm::vec3 vertex;
-			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
+			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
 			tmp_vertices.push_back(vertex);
 		} else if (!strcmp(lineID, "vt")) {
 			glm::vec2 uv;
@@ -66,11 +66,6 @@ int Obj::loadFromObjFile(FILE *file)
 			// Invert V coordinate since we will only use DDS textures
 			// which are inverted. Remove if you want to use TGA or BMP loaders.
 			// uv.y = -uv.y;
-
-			//TESTS
-			uv.x = uv.x;// + 0.09f;
-			uv.y = uv.y;
-
 			tmp_uvs.push_back(uv);
 		} else if (!strcmp(lineID, "vn")) {
 			glm::vec3 normal;
@@ -99,16 +94,18 @@ int Obj::loadFromObjFile(FILE *file)
 			fgets(stupidBuffer, 1000, file);
 		}
 	}
+	std::cout << "\t" << tmp_vertices.size() << " " << "vertices" << std::endl;
+
 	// For each vertex of each triangle
-	for( unsigned int i=0; i<vertexIndices.size(); i++ ){
+	for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 		// Get the indices of its attributes
 		unsigned int vertexIndex = vertexIndices[i];
 		unsigned int uvIndex = uvIndices[i];
 		unsigned int normalIndex = normalIndices[i];
 		// Get the attributes thanks to the index
-		glm::vec3 vertex = tmp_vertices[ vertexIndex-1 ];
-		glm::vec2 uv = tmp_uvs[ uvIndex-1 ];
-		glm::vec3 normal = tmp_normals[ normalIndex-1 ];
+		glm::vec3 vertex = tmp_vertices[vertexIndex - 1];
+		glm::vec2 uv = tmp_uvs[uvIndex - 1];
+		glm::vec3 normal = tmp_normals[normalIndex - 1];
 		// Put the attributes in buffers
 		_vertices.push_back(vertex);
 		_uvs     .push_back(uv);

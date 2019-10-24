@@ -17,7 +17,7 @@ Obj::~Obj()
 
 
 int Obj::draw()
-{	
+{
 	drawBuffer(_verticesBuffer, 0, 3);
 	drawBuffer(_uvBuffer, 1, 2);
 	drawBuffer(_normalBuffer, 2, 3);

@@ -10,6 +10,10 @@ int App::loadObjsLibrary()
 	tmpObj = new Obj("suzanne");
 	tmpObj->loadObj("./data/objs/suzanne.obj");
 	_objsLibrary.emplace("suzanne", tmpObj);
+
+	tmpObj = new Obj("terrain");
+	tmpObj->loadObj("./data/objs/terrain.obj");
+	_objsLibrary.emplace("terrain", tmpObj);
 	return SUCCESS;
 }
 
@@ -20,7 +24,7 @@ int App::initShaders()
 	basicShader->loadShaders("./data/shaders/StandardShading.vertexshader",
 				"./data/shaders/StandardShading.fragmentshader"
 	);
-	basicShader->loadTexture("./data/textures/uvCube.bmp", false);
+	basicShader->loadTexture("./data/textures/Landscape.bmp", false);
 	_shaders.emplace("textured", basicShader);
 	return SUCCESS;
 }
