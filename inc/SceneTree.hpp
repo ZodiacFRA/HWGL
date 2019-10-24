@@ -30,14 +30,18 @@ class SceneTree {
 public:
 	SceneTree();
 	virtual ~SceneTree();
-	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	int insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position);
+	int remove(std::string nodeName);
 	Node *getNode(std::string nodeName);
 
+	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	int translateNode(std::string nodeName, glm::vec3 tM);
 	int setNodePosition(std::string nodeName, glm::vec3 pM);
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);
+	int scaleNode(std::string nodeName, glm::vec3 sM);
+	int setNodeScale(std::string nodeName, glm::vec3 sM);
+
 	// DOES NOT WORK
 	int setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM);
 

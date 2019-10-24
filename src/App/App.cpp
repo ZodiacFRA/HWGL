@@ -12,9 +12,18 @@ App::App()			// RIGHT / HEIGHT / FRONT
 int App::setupScene()
 {
 	// Node name, Obj name, Shader name, Texture name, Position
-	// createNode("", "suzanneNode", "suzanneMe", "StandardShading",
-	// 	"suzUvPaint", glm::vec3(0, 1, 2));
 	// 1 openGL unit = 1m in Blender
+	//
+	createNode("", "suzanneNode", "suzanneMe", "StandardShading",
+		"suzUvPaint", glm::vec3(0, 1, 0));
+
+	// std::cout << glm::to_string(_sceneTree.getNode("suzanneNode")->modelMatrix) << '\n';
+	// _sceneTree.setNodeRotation("suzanneNode", 90.0, glm::vec3(0, 0, 0));
+	// _sceneTree.scaleNode("suzanneNode", glm::vec3(2.0, 2, 2.0));
+	// std::cout << glm::to_string(_sceneTree.getNode("suzanneNode")->modelMatrix) << '\n';
+
+	// glm::mat4 test(0.1);
+	// std::cout << glm::to_string(test) << '\n';
 
 	createNode("", "terrainNode", "plane", "StandardShadingNoSpec",
 		"floortexture", glm::vec3(0, 0, 0));
@@ -26,12 +35,14 @@ int App::run()
 {
 	do {
 		handleTime();
-		// drawLights();
-
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// _sceneTree.setNodeRotation("suzanneNode", 1.0, glm::vec3(0, 1, 0));
+		// drawLights();
+
+		// Change objs properties here
+		// _sceneTree.setNodeScale("suzanneNode", glm::vec3(2.0, 1, 1.0));
+
 		// Compute the MVP matrix from keyboard and mouse input
 		if (!this->computeMatricesFromInputs())
 			return FAILURE;
@@ -62,6 +73,10 @@ App::~App()
 			delete it.second;
 	}
 	for (auto it : _objsLibrary) {
+		if (it.second)
+			delete it.second;
+	}
+	for (auto it : _textureLibrary) {
 		if (it.second)
 			delete it.second;
 	}

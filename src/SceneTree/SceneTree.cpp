@@ -38,6 +38,20 @@ int SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 }
 
 
+int SceneTree::remove(std::string nodeName)
+{
+	Node *node = NULL;
+	auto it = _nodes.find(nodeName);
+	if (it != _nodes.end())
+		node = it->second;
+	else
+		return printError("Can't delete node (Node not found)");
+	_nodes.erase(it);
+	delete node;
+	return SUCCESS;
+}
+
+
 int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
 	for (auto it : _nodes) {
@@ -55,5 +69,13 @@ int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 
 Node *SceneTree::getNode(std::string nodeName)
 {
-	return _nodes[nodeName];
+	Node *node = NULL;
+	auto it = _nodes.find(nodeName);
+	if (it != _nodes.end()) {
+		node = it->second;
+	} else {
+		printError("Can't give node (Node not found)");
+		return NULL;
+	}
+	return node;
 }

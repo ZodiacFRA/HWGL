@@ -44,15 +44,44 @@ int SceneTree::rotateNode(std::string nodeName, float degrees, glm::vec3 rM)
 int SceneTree::setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM)
 {
 	// DOES NOT WORK
+	// I think 3 glm::vec3 are needed to set the modelMatrix[1] and [2]
 	Node *node = NULL;
 	auto it = _nodes.find(nodeName);
 	if (it != _nodes.end())
 		node = it->second;
 	else
 		return printError("Can't set node rotation (Node not found)");
-	glm::vec3 mM = node->modelMatrix[3];
+	glm::vec3 mM = node->modelMatrix[1];
 	glm::vec3 resM(rM[0] - mM[0], rM[1] - mM[1], rM[2] - mM[2]);
 	node->modelMatrix = glm::rotate(node->modelMatrix,
 					glm::radians(degrees), resM);
+	return SUCCESS;
+}
+
+
+int SceneTree::scaleNode(std::string nodeName, glm::vec3 sM)
+{
+	Node *node = NULL;
+	auto it = _nodes.find(nodeName);
+	if (it != _nodes.end())
+		node = it->second;
+	else
+		return printError("Can't rotate node (Node not found)");
+	node->modelMatrix = glm::scale(node->modelMatrix, sM);
+	return SUCCESS;
+}
+
+
+int SceneTree::setNodeScale(std::string nodeName, glm::vec3 sM)
+{
+	Node *node = NULL;
+	auto it = _nodes.find(nodeName);
+	if (it != _nodes.end())
+		node = it->second;
+	else
+		return printError("Can't set node rotation (Node not found)");
+	glm::vec3 mM = node->modelMatrix[0];
+	glm::vec3 resM(sM[0] - mM[0], sM[1] - mM[1], sM[2] - mM[2]);
+	node->modelMatrix = glm::scale(node->modelMatrix, resM);
 	return SUCCESS;
 }
