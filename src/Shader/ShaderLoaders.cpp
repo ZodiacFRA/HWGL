@@ -88,7 +88,6 @@ int Shader::loadShaders(const char *v_path, const char *f_path)
 	loadShader(vertexShaderID, v_path);
 	loadShader(FragmentShaderID, f_path);
 
-	printf("Linking shaders...\n");
 	_programID = glCreateProgram();
 
 	glAttachShader(_programID, vertexShaderID);
@@ -132,7 +131,7 @@ int Shader::loadShader(GLuint shaderID, const char *path)
 		return printError("Impossible to open shader");
 
 	// Compile Shader
-	printf("Compiling shader : %s\n", path);
+	printf("Compiling shader %s\n", path);
 	char const * sourcePointer = shaderCode.c_str();
 	glShaderSource(shaderID, 1, &sourcePointer , NULL);
 	glCompileShader(shaderID);

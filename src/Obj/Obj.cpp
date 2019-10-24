@@ -2,7 +2,7 @@
 
 
 Obj::Obj(std::string name)
-	: _name(name), _modelMatrix(1.0)
+	: _name(name)
 {}
 
 Obj::~Obj()
@@ -16,10 +16,8 @@ Obj::~Obj()
 }
 
 
-int Obj::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
-{
-	_shader->setupDraw(projectionMatrix, viewMatrix, _modelMatrix);
-
+int Obj::draw()
+{	
 	drawBuffer(_verticesBuffer, 0, 3);
 	drawBuffer(_uvBuffer, 1, 2);
 	drawBuffer(_normalBuffer, 2, 3);

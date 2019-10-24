@@ -12,15 +12,10 @@ public:
 	virtual ~Obj ();
 
 	int loadObj(std::string filepath);
-	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
+	int draw();
 
-	// SETTERS - GETTERS
-	void setShader(Shader *shader) { _shader = shader; }
-	glm::mat4 getModelMatrix() { return _modelMatrix; }
-
-private:
 	std::string _name;
-	glm::mat4 _modelMatrix;
+private:
 
 	std::vector<glm::vec3> _vertices;
 	std::vector<glm::vec2> _uvs;
@@ -35,8 +30,6 @@ private:
 	GLuint _uvBuffer;
 	GLuint _normalBuffer;
 	GLuint _elementBuffer;
-
-	Shader *_shader;
 
 	int loadFromObjFile(FILE *file);
 	int drawBuffer(GLuint buffer, int attribute, int size);

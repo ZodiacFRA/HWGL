@@ -1,6 +1,31 @@
 #include "App.hpp"
 
 
+int App::loadObjsLibrary()
+{
+	Obj *tmpObj = new Obj("cubeUV"); // Name the mesh itself
+	tmpObj->loadObj("./data/objs/cubeUV.obj");
+	_objsLibrary.emplace("cube", tmpObj);
+
+	tmpObj = new Obj("suzanne");
+	tmpObj->loadObj("./data/objs/suzanne.obj");
+	_objsLibrary.emplace("suzanne", tmpObj);
+	return SUCCESS;
+}
+
+
+int App::initShaders()
+{
+	Shader *basicShader = new Shader();
+	basicShader->loadShaders("./data/shaders/StandardShading.vertexshader",
+				"./data/shaders/StandardShading.fragmentshader"
+	);
+	basicShader->loadTexture("./data/textures/uvCube.bmp", false);
+	_shaders.emplace("textured", basicShader);
+	return SUCCESS;
+}
+
+
 int App::initGLFW()
 {
 	if (!glfwInit())
@@ -45,18 +70,6 @@ int App::initGLEW()
 	glewExperimental = true; // Needed for core profile
 	if (glewInit() != GLEW_OK)
 		return printError("Failed to initialize GLEW");
-	return SUCCESS;
-}
-
-
-int App::initShaders()
-{
-	Shader *basicShader = new Shader();
-	basicShader->loadShaders("./data/shaders/StandardShading.vertexshader",
-				"./data/shaders/StandardShading.fragmentshader"
-	);
-	basicShader->loadTexture("./data/textures/uvCube.bmp", false);
-	_shaders.emplace("basicShader", basicShader);
 	return SUCCESS;
 }
 

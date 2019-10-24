@@ -13,6 +13,7 @@ set(GL_SRC_DIR "${PROJECT_SOURCE_DIR}/src/GL")
 set(SRC_FILES
         ${SRC_DIR}/main.cpp
 	${SRC_DIR}/utils.cpp
+	${SRC_DIR}/SceneTree.cpp
 
         ${SRC_DIR}/App/App.cpp
         ${SRC_DIR}/App/AppInits.cpp

@@ -3,8 +3,9 @@
 
 App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
+	_lastTime(glfwGetTime()), _nbFrames(0),
 	_camPos(glm::vec3(-2, 3, 10)), _hAngle(2.95f), // 3.14
-	_vAngle(-0.3f), _lightPos(-1, 4, 2), _tmpObj("test")
+	_vAngle(-0.3f), _lightPos(-1, 4, 2)
 {}
 
 App::~App()
@@ -13,14 +14,12 @@ App::~App()
 		if (it.second)
 			delete it.second;
 	}
+	for (auto it : _objsLibrary) {
+		if (it.second)
+			delete it.second;
+	}
 	glDeleteVertexArrays(1, &_vertexArrayID);
 	glfwTerminate();
-}
-
-App &App::get()
-{
-	static App app;
-	return app;
 }
 
 
@@ -30,28 +29,52 @@ int App::init() {
 	flag &= initGLEW();
 	flag &= initVertexArray();
 	flag &= initShaders();
+	flag &= loadObjsLibrary();
+	flag &= setupScene();
 
-	_tmpObj.loadObj("./data/objs/cubeUV.obj");
-	_tmpObj.setShader(_shaders["basicShader"]);
-
-	flag &= initLights();  // TODO move to scene tree
+	// flag &= initLights();  // TODO move to scene tree
 	return flag;
+}
+
+
+int App::setupScene()
+{
+	Obj *tmpObj = _objsLibrary["cube"];
+	// CHECK IF OBJ EXISTS
+	Shader *tmpShader = _shaders["textured"];
+	// CHECK IF SHADER EXISTS
+	_sceneTree.insert("", "1stCube", tmpObj, tmpShader);
+
+	tmpObj = _objsLibrary["suzanne"];
+	// CHECK IF OBJ EXISTS
+	tmpShader = _shaders["textured"];
+	// CHECK IF SHADER EXISTS
+	_sceneTree.insert("", "1stSuzanne", tmpObj, tmpShader);
+	_sceneTree.translateNode("1stSuzanne", glm::vec3(1, 0, 0));
+	return SUCCESS;
 }
 
 
 int App::run()
 {
 	do {
+		_currentTime = glfwGetTime();
+		_nbFrames++;
+		// If last prinf() was more than 1sec ago
+		if (_currentTime - _lastTime >= 1.0) {
+			printf("%f ms / frame\n", 1000.0 / double(_nbFrames));
+			_nbFrames = 0;
+			_lastTime += 1.0;
+		}
+
 		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// for _tmpObj in objects:
 		// Compute the MVP matrix from keyboard and mouse input
 		if (!this->computeMatricesFromInputs())
 			return FAILURE;
 
-		// drawLights();
-		_tmpObj.draw(_projectionMatrix, _viewMatrix);
+		_sceneTree.draw(_projectionMatrix, _viewMatrix);
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
