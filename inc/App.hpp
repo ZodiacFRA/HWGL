@@ -37,7 +37,7 @@ private:
 	int handleAspectRatio();
 
 	// Game
-	int moveFloor();
+	int moveFloor(float speed);
 
 
 	// Utils

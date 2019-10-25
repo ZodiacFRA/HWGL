@@ -1,7 +1,7 @@
 #include "App.hpp"
 
 
-int App::moveFloor()
+int App::moveFloor(float speed)
 {
 	Node *left = _sceneTree.getNode("terrainLeftNode");
 	Node *mid = _sceneTree.getNode("terrainMidNode");
@@ -12,9 +12,10 @@ int App::moveFloor()
 		mid->modelMatrix = glm::translate(mid->modelMatrix, tM);
 		right->modelMatrix = glm::translate(right->modelMatrix, tM);
 	} else {
-		left->modelMatrix = glm::translate(left->modelMatrix, glm::vec3(0, 0, 0.1));
-		mid->modelMatrix = glm::translate(mid->modelMatrix, glm::vec3(0, 0, 0.1));
-		right->modelMatrix = glm::translate(right->modelMatrix, glm::vec3(0, 0, 0.1));
+		glm::vec3 tM(0, 0, speed);
+		left->modelMatrix = glm::translate(left->modelMatrix, tM);
+		mid->modelMatrix = glm::translate(mid->modelMatrix, tM);
+		right->modelMatrix = glm::translate(right->modelMatrix, tM);
 	}
 	return SUCCESS;
 }

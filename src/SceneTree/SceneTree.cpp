@@ -2,7 +2,7 @@
 
 
 SceneTree::SceneTree()
-	: _lightPos(0, 10, 0)
+	: _lightPos(-5, 10, 5)
 {
 	_root.name = "";
 }

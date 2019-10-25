@@ -58,7 +58,7 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 		_projectionMatrix = glm::perspective(
 					glm::radians(fov),
 					float(_winWidth) / float(_winHeight),
-					0.01f, 1000.0f);
+					0.01f, 5000.0f);
 	} else {
 		// Does not work
 		// limits left, right, bottom, top, display range
@@ -72,7 +72,7 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 	} else {
 		_viewMatrix = glm::lookAt(
 				_camPos,
-				glm::vec3(0, 0, 0),
+				glm::vec3(0, 0, -6),
 				glm::vec3(0, 1, 0));
 	}
 	// For the next frame, the "last time" will be "now"
