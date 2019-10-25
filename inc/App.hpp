@@ -30,7 +30,8 @@ private:
 			std::string objName, std::string shaderName,
 			std::string textureName, glm::vec3 position);
 
-	int computeMatricesFromInputs();
+	int computeMatricesFromInputs(bool perspective_cam, float fov,
+					bool controlled);
 
 	void handleTime();
 	int handleAspectRatio();

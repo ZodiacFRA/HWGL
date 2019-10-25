@@ -31,15 +31,11 @@
 #define WIN_HEIGHT 1050
 #define WIN_NAME "HWGL"
 
-#define BG_COLOR 0.27f, 0.28f, 0.34f, 0.0f
-
+#define BG_COLOR 0, 0, 0, 0
 #define FPS_PRINT_INTERVAL 4.0
 
-#define FOV 40.0f
-#define CAM_MOV_SPEED 5.0f
+#define CAM_MOV_SPEED 10.0f
 #define MOUSE_MOV_SPEED 0.0002f
-#define H_ANGLE 3.14f
-#define V_ANGLE 0.0f
 
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"

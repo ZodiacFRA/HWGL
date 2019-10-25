@@ -25,7 +25,7 @@ int App::loadTextureLibrary()
 	_textureLibrary.emplace("suzUvPaint", tmpTex);
 
 	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/floortexture.bmp", false);
+	tmpTex->loadTexture("./data/textures/final_floortexture.bmp", false);
 	_textureLibrary.emplace("floortexture", tmpTex);
 	return SUCCESS;
 }
@@ -33,17 +33,17 @@ int App::loadTextureLibrary()
 
 int App::loadObjsLibrary()
 {
-	Obj *tmpObj = new Obj("cubeUV"); // Name the mesh itself
-	tmpObj->loadObj("./data/objs/cubeUV.obj");
-	_objsLibrary.emplace("cubeUV", tmpObj);
+	Obj *tmpObj = new Obj("axis"); // Name the mesh itself
+	tmpObj->loadObj("./data/objs/axis.obj");
+	_objsLibrary.emplace("axis", tmpObj);
 
 	tmpObj = new Obj("suzanne");
 	tmpObj->loadObj("./data/objs/suzanneMe.obj");
 	_objsLibrary.emplace("suzanneMe", tmpObj);
 
-	tmpObj = new Obj("terrain");
-	tmpObj->loadObj("./data/objs/terrain.obj");
-	_objsLibrary.emplace("terrain", tmpObj);
+	tmpObj = new Obj("rect");
+	tmpObj->loadObj("./data/objs/rect.obj");
+	_objsLibrary.emplace("rectFloor", tmpObj);
 
 	tmpObj = new Obj("plane");
 	tmpObj->loadObj("./data/objs/plane.obj");
