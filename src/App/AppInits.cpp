@@ -133,15 +133,6 @@ int App::initVertexArray()
 }
 
 
-int App::initLights()
-{
-	// Get a handle for our "LightPosition" uniform
-	// glUseProgram(_programID);
-	// _lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
-	return SUCCESS;
-}
-
-
 int App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
 		std::string textureName, glm::vec3 position)

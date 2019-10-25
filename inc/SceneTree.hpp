@@ -30,10 +30,13 @@ class SceneTree {
 public:
 	SceneTree();
 	virtual ~SceneTree();
+
 	int insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position);
 	int remove(std::string nodeName);
+
 	Node *getNode(std::string nodeName);
+	int setLightPos(glm::vec3 lightPos);
 
 	int draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
 	int translateNode(std::string nodeName, glm::vec3 tM);
@@ -41,13 +44,12 @@ public:
 	int rotateNode(std::string nodeName, float degrees, glm::vec3 rM);
 	int scaleNode(std::string nodeName, glm::vec3 sM);
 	int setNodeScale(std::string nodeName, glm::vec3 sM);
-
 	// DOES NOT WORK
 	int setNodeRotation(std::string nodeName, float degrees, glm::vec3 rM);
 
 private:
 	Node _root;
-
+	glm::vec3 _lightPos;
 	std::map<std::string, Node *> _nodes;
 };
 

@@ -7,11 +7,12 @@ Shader::~Shader()
 }
 
 
-int Shader::setupDraw(glm::mat4 projectionMatrix,
-		glm::mat4 viewMatrix,
-		glm::mat4 modelMatrix)
+int Shader::setupDraw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix,
+		glm::mat4 modelMatrix, glm::vec3 lightPos)
 {
 	glUseProgram(_programID);
+
+	glUniform3f(_lightID, lightPos.x, lightPos.y, lightPos.z);
 
 	glm::mat4 MVP = projectionMatrix * viewMatrix * modelMatrix;
 
@@ -33,5 +34,9 @@ int Shader::initMatricesIDs()
 	_matrixID = glGetUniformLocation(_programID, "MVP");
 	_viewMatrixID = glGetUniformLocation(_programID, "V");
 	_modelMatrixID = glGetUniformLocation(_programID, "M");
+
+	// Will be used only if shader does have a "LightPosition_worldspace"
+	_lightID = glGetUniformLocation(_programID, "LightPosition_worldspace");
+
 	return SUCCESS;
 }

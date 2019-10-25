@@ -5,7 +5,7 @@ App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
 	_lastTime(glfwGetTime()), _nbFrames(0),
 	_camPos(glm::vec3(0, 3, 5)), _hAngle(3.14f), // 3.14
-	_vAngle(-0.5f), _lightPos(0, 5, 0)
+	_vAngle(-0.5f)
 {}
 
 
@@ -19,7 +19,6 @@ int App::setupScene()
 
 	// std::cout << glm::to_string(_sceneTree.getNode("suzanneNode")->modelMatrix) << '\n';
 	// _sceneTree.setNodeRotation("suzanneNode", 90.0, glm::vec3(0, 0, 0));
-	// _sceneTree.scaleNode("suzanneNode", glm::vec3(2.0, 2, 2.0));
 	// std::cout << glm::to_string(_sceneTree.getNode("suzanneNode")->modelMatrix) << '\n';
 
 	// glm::mat4 test(0.1);
@@ -42,6 +41,7 @@ int App::run()
 
 		// Change objs properties here
 		// _sceneTree.setNodeScale("suzanneNode", glm::vec3(2.0, 1, 1.0));
+		_sceneTree.rotateNode("suzanneNode", 1, glm::vec3(1, 0, 1));
 
 		// Compute the MVP matrix from keyboard and mouse input
 		if (!this->computeMatricesFromInputs())
@@ -55,13 +55,6 @@ int App::run()
 	} // Check if the ESC key was pressed or the window was closed
 	while (glfwGetKey(_win, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		!glfwWindowShouldClose(_win));
-	return SUCCESS;
-}
-
-
-int App::drawLights()
-{
-	glUniform3f(_lightID, _lightPos.x, _lightPos.y, _lightPos.z);
 	return SUCCESS;
 }
 

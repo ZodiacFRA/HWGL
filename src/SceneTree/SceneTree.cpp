@@ -2,6 +2,7 @@
 
 
 SceneTree::SceneTree()
+	: _lightPos(0, 5, 0)
 {
 	_root.name = "";
 }
@@ -56,7 +57,7 @@ int SceneTree::draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
 {
 	for (auto it : _nodes) {
 		it.second->shader->setupDraw(projectionMatrix, viewMatrix,
-					it.second->modelMatrix);
+					it.second->modelMatrix, _lightPos);
 		// SHOULD ADD ALL PARENTS TRANSFORMATIONS AS WELL!
 		if (it.second->texture)
 			it.second->texture->setupDraw(
@@ -78,4 +79,11 @@ Node *SceneTree::getNode(std::string nodeName)
 		return NULL;
 	}
 	return node;
+}
+
+
+int SceneTree::setLightPos(glm::vec3 lightPos)
+{
+	_lightPos = lightPos;
+	return SUCCESS;
 }

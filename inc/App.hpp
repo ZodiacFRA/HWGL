@@ -60,11 +60,6 @@ private:
 	std::map<std::string, Obj *> _objsLibrary;
 	std::map<std::string, Texture *> _textureLibrary;
 	SceneTree _sceneTree;
-
-	GLuint _lightID;
-	glm::vec3 _lightPos;
-	int initLights();
-	int drawLights();
 };
 
 #endif //APP_HPP

@@ -9,7 +9,7 @@ public:
 	virtual ~Shader();
 
 	int setupDraw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix,
-			glm::mat4 modelMatrix);
+			glm::mat4 modelMatrix, glm::vec3 lightPos);
 
 	// GETTERS
 	GLuint getProgramID() { return _programID; }
@@ -20,6 +20,10 @@ private:
 	GLuint _matrixID;
 	GLuint _modelMatrixID;
 	GLuint _viewMatrixID;
+
+	// Will be used only if shader does have a "LightPosition_worldspace"
+	GLuint _lightID;
+
 
 	int loadShader(GLuint shaderID, const char *path);
 	int initMatricesIDs();
