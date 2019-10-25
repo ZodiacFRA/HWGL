@@ -36,6 +36,10 @@ private:
 	void handleTime();
 	int handleAspectRatio();
 
+	// Game
+	int moveFloor();
+
+
 	// Utils
 	int _winWidth;
 	int _winHeight;

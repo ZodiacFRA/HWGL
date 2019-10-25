@@ -19,6 +19,8 @@ set(SRC_FILES
         ${SRC_DIR}/App/AppInits.cpp
         ${SRC_DIR}/App/AppControls.cpp
         ${SRC_DIR}/App/AppUtils.cpp
+        ${SRC_DIR}/App/AppLoaders.cpp
+        ${SRC_DIR}/App/AppGame.cpp
 
 	${SRC_DIR}/Obj/Obj.cpp
 	${SRC_DIR}/Obj/ObjLoaders.cpp
