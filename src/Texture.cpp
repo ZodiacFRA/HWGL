@@ -85,3 +85,9 @@ int Texture::loadTexture(const char *t_path, bool enableFiltering)
 	}
 	return SUCCESS;
 }
+
+
+Texture::~Texture()
+{
+	glDeleteTextures(1, &_texture);
+}
