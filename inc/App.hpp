@@ -44,13 +44,14 @@ private:
 	int _winWidth;
 	int _winHeight;
 	double _lastTime;
-	int _nbFrames;
 	double _currentTime;
+	float _deltaTime;
+	int _nbFrames;
 
+	// GL
 	GLFWwindow *_win;
 	GLuint _vertexArrayID;
 
-	// May move to each shader
 	glm::mat4 _projectionMatrix;
 	glm::mat4 _viewMatrix;
 
@@ -61,7 +62,8 @@ private:
 	double _xMouse;
 	double _yMouse;
 
-	std::map<std::string, Shader *> _shaders; // TODO rename to _shadersLibrary
+ 	// TODO rename to _shadersLibrary
+	std::map<std::string, Shader *> _shaders;
 	std::map<std::string, Obj *> _objsLibrary;
 	std::map<std::string, Texture *> _textureLibrary;
 	SceneTree _sceneTree;

@@ -21,11 +21,15 @@ int App::handleAspectRatio()
 void App::handleTime()
 {
 	_currentTime = glfwGetTime();
+	_deltaTime = _currentTime - _lastTime;
+	_lastTime = _currentTime;
+
+	// FPS counter
 	_nbFrames++;
-	double deltaTime = _currentTime - _lastTime;
-	if (deltaTime >= FPS_PRINT_INTERVAL) {
-		printf("%f fps\n", double(_nbFrames) / deltaTime);
+	static float lastFrameTime = glfwGetTime();
+	if (_currentTime - lastFrameTime >= FPS_PRINT_INTERVAL) {
+		printf("%f fps\n", float(_nbFrames) / (_currentTime - lastFrameTime));
 		_nbFrames = 0;
-		_lastTime += deltaTime;
+		lastFrameTime = _currentTime;
 	}
 }

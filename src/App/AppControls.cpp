@@ -4,13 +4,6 @@
 int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 					bool controlled)
 {
-	// glfwGetTime is called only once, the first time this function is called
-	static double lastTime = glfwGetTime();
-
-	// Compute time difference between current and last frame
-	double currentTime = glfwGetTime();
-	float deltaTime = float(currentTime - lastTime);
-
 	// Get mouse position
 	glfwGetCursorPos(_win, &_xMouse, &_yMouse);
 
@@ -40,17 +33,17 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 	if (controlled) {
 		// Handle key inputs for cam movement
 		if (glfwGetKey(_win, GLFW_KEY_W) == GLFW_PRESS)
-			_camPos += direction * deltaTime * CAM_MOV_SPEED;
+			_camPos += direction * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_S) == GLFW_PRESS)
-			_camPos -= direction * deltaTime * CAM_MOV_SPEED;
+			_camPos -= direction * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_D) == GLFW_PRESS)
-			_camPos += right * deltaTime * CAM_MOV_SPEED;
+			_camPos += right * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_A) == GLFW_PRESS)
-			_camPos -= right * deltaTime * CAM_MOV_SPEED;
+			_camPos -= right * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS)
-			_camPos += up * deltaTime * CAM_MOV_SPEED;
+			_camPos += up * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-			_camPos -= up * deltaTime * CAM_MOV_SPEED;
+			_camPos -= up * _deltaTime * CAM_MOV_SPEED;
 	}
 
 	if (perspective_cam) {  // Projection matrix
@@ -75,7 +68,5 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 				glm::vec3(0, 0, -6),
 				glm::vec3(0, 1, 0));
 	}
-	// For the next frame, the "last time" will be "now"
-	lastTime = currentTime;
 	return SUCCESS;
 }
