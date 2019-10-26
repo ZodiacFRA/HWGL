@@ -13,7 +13,6 @@ int App::init() {
 
 	flag &= setupScene();
 
-	// flag &= initLights();  // TODO move to scene tree
 	return flag;
 }
 

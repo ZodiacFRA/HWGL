@@ -10,6 +10,10 @@ int App::loadTextureLibrary()
 	tmpTex = new Texture();
 	tmpTex->loadTexture("./data/textures/final_floortexture.bmp", false);
 	_textureLibrary.emplace("floortexture", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/dev.bmp", false);
+	_textureLibrary.emplace("dev", tmpTex);
 	return SUCCESS;
 }
 
@@ -20,9 +24,9 @@ int App::loadObjsLibrary()
 	tmpObj->loadObj("./data/objs/axis.obj");
 	_objsLibrary.emplace("axis", tmpObj);
 
-	tmpObj = new Obj("suzanne");
-	tmpObj->loadObj("./data/objs/suzanneMe.obj");
-	_objsLibrary.emplace("suzanneMe", tmpObj);
+	tmpObj = new Obj("cube");
+	tmpObj->loadObj("./data/objs/cube.obj");
+	_objsLibrary.emplace("cube", tmpObj);
 
 	tmpObj = new Obj("rect");
 	tmpObj->loadObj("./data/objs/rect.obj");

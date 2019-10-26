@@ -34,8 +34,8 @@
 #define BG_COLOR 0, 0, 0, 0
 #define FPS_PRINT_INTERVAL 4.0
 
-#define CAM_MOV_SPEED 10.0f
-#define MOUSE_MOV_SPEED 0.0002f
+#define CAM_MOV_SPEED 60.0f
+#define MOUSE_MOV_SPEED 0.0001f
 
 #define C_RED "\x1b[31m"
 #define C_GREEN "\x1b[32m"

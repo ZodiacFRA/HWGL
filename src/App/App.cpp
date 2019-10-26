@@ -4,7 +4,8 @@
 App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
 	_lastTime(glfwGetTime()), _nbFrames(0),
-	_camPos(glm::vec3(200, 200, 200)),
+	// _camPos(glm::vec3(200, 200, 200)),
+	_camPos(glm::vec3(10, 10, 10)),
 	_hAngle(glm::radians(-135.0)), _vAngle(-0.6)
 {}
 
@@ -28,6 +29,9 @@ int App::setupScene()
 	createNode("", "terrainMidNode", "rectFloor", "StandardShadingNoSpec",
 		"floortexture", glm::vec3(0, 0, 0));
 
+	createNode("", "cubeNode", "cube", "StandardShading",
+		"dev", glm::vec3(-2, 1, 0));
+
 	return SUCCESS;
 }
 
@@ -43,7 +47,8 @@ int App::run()
 		moveFloor(0.1);
 
 		// Compute the MVP matrix from keyboard and mouse input
-		if (!this->computeMatricesFromInputs(true, 2.0f, false))
+		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
+		if (!this->computeMatricesFromInputs(true, 40.0f, true))
 			return FAILURE;
 
 		_sceneTree.draw(_projectionMatrix, _viewMatrix);
