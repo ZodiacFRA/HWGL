@@ -26,7 +26,7 @@ private:
 	int loadTextureLibrary();
 
 	int setupScene();
-	int createNode(std::string parentNodeName, std::string nodeName,
+	Node *createNode(std::string parentNodeName, std::string nodeName,
 			std::string objName, std::string shaderName,
 			std::string textureName, glm::vec3 position);
 
@@ -37,7 +37,7 @@ private:
 	int handleAspectRatio();
 
 	// Game
-	int moveFloor(float speed);
+	int moveFloor();
 
 
 	// Utils
@@ -47,6 +47,8 @@ private:
 	double _currentTime;
 	float _deltaTime;
 	int _nbFrames;
+	float _worldSpeed;
+	float _distMoved;  // Score?
 
 	// GL
 	GLFWwindow *_win;
@@ -67,6 +69,9 @@ private:
 	std::map<std::string, Obj *> _objsLibrary;
 	std::map<std::string, Texture *> _textureLibrary;
 	SceneTree _sceneTree;
+
+	// Decor
+	std::map<std::string, Node *> _sceneryNodes;
 };
 
 #endif //APP_HPP

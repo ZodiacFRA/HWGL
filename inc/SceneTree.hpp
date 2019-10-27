@@ -31,7 +31,7 @@ public:
 	SceneTree();
 	virtual ~SceneTree();
 
-	int insert(std::string parentName, std::string name, Obj *obj,
+	Node *insert(std::string parentName, std::string name, Obj *obj,
 			Shader *shader, Texture *texture, glm::vec3 position);
 	int remove(std::string nodeName);
 

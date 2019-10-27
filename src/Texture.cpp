@@ -40,7 +40,7 @@ int Texture::loadTexture(const char *t_path, bool enableFiltering)
 	   	(header[0]!='B' || header[1]!='M') ||
 		// Make sure this is a 24bpp file
 		*(int*)&(header[0x1E])!=0 || *(int*)&(header[0x1C])!=24) {
-		printError("Not a correct BMP file\n");
+		printError("Not a correct BMP file (24 bits encoding needed)\n");
 		fclose(file);
 		return FAILURE;
 	}

@@ -12,15 +12,15 @@ int App::loadTextureLibrary()
 	_textureLibrary.emplace("floortexture", tmpTex);
 
 	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/dev.bmp", false);
-	_textureLibrary.emplace("dev", tmpTex);
+	tmpTex->loadTexture("./data/textures/cube.bmp", false);
+	_textureLibrary.emplace("cube", tmpTex);
 	return SUCCESS;
 }
 
 
 int App::loadObjsLibrary()
 {
-	Obj *tmpObj = new Obj("axis"); // Name the mesh itself
+	Obj *tmpObj = new Obj("axis"); // Name of the mesh itself
 	tmpObj->loadObj("./data/objs/axis.obj");
 	_objsLibrary.emplace("axis", tmpObj);
 

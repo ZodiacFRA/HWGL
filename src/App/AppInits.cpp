@@ -73,33 +73,38 @@ int App::initVertexArray()
 }
 
 
-int App::createNode(std::string parentNodeName, std::string nodeName,
+Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
 		std::string textureName, glm::vec3 position)
 {
 	Obj *tmpObj = NULL;
 	auto it = _objsLibrary.find(objName);
-	if (it != _objsLibrary.end())
+	if (it != _objsLibrary.end()) {
 		tmpObj = it->second;
-	else
-		return printError("Can't create node (Obj does not exist)");
+	} else {
+		printError("Can't create node (Obj does not exist)");
+		return NULL;
+	}
 
 	Shader *tmpShader = NULL;
 	auto it1 = _shaders.find(shaderName);
-	if (it1 != _shaders.end())
+	if (it1 != _shaders.end()) {
 		tmpShader = it1->second;
-	else
-		return printError("Can't create node (Shader does not exist)");
+	} else {
+		printError("Can't create node (Shader does not exist)");
+		return NULL;
+	}
 
 	Texture *tmpTexture = NULL;
 	if (textureName != "") {
 		auto it2 = _textureLibrary.find(textureName);
-		if (it2 != _textureLibrary.end())
+		if (it2 != _textureLibrary.end()) {
 			tmpTexture = it2->second;
-		else
-			return printError("Can't create node (Texture does not exist)");
+		} else {
+			printError("Can't create node (Texture does not exist)");
+			return NULL;
+		}
 	}
-	_sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
+	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
 				tmpTexture, position);
-	return SUCCESS;
 }

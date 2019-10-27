@@ -12,6 +12,7 @@
 #include <string>
 #include <random>
 #include <vector>
+#include <cmath>
 #include <map>
 
 #include <GL/glew.h>

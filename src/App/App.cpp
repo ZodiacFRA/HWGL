@@ -4,6 +4,7 @@
 App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
 	_lastTime(glfwGetTime()), _nbFrames(0),
+	_worldSpeed(0.3), _distMoved(0.0),  // Only 1 decimal allowed on worldspeed
 	// _camPos(glm::vec3(200, 200, 200)),
 	_camPos(glm::vec3(10, 10, 10)),
 	_hAngle(glm::radians(-135.0)), _vAngle(-0.6)
@@ -28,10 +29,6 @@ int App::setupScene()
 		"floortexture", glm::vec3(0, 0, -24));
 	createNode("", "terrainMidNode", "rectFloor", "StandardShadingNoSpec",
 		"floortexture", glm::vec3(0, 0, 0));
-
-	createNode("", "cubeNode", "cube", "StandardShading",
-		"dev", glm::vec3(-2, 1, 0));
-
 	return SUCCESS;
 }
 
@@ -40,13 +37,11 @@ int App::run()
 {
 	do {
 		handleTime();
-		// Clear the screen
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Change objs properties here
-		moveFloor(0.1);
+		moveFloor();
 
-		// Compute the MVP matrix from keyboard and mouse input
 		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
 		if (!this->computeMatricesFromInputs(true, 40.0f, true))
 			return FAILURE;
