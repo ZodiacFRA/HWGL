@@ -13,6 +13,7 @@
 #include <random>
 #include <vector>
 #include <cmath>
+#include <math.h>
 #include <map>
 
 #include <GL/glew.h>
@@ -27,6 +28,8 @@
 
 #define FAILURE 0
 #define SUCCESS 1
+
+#define PI 3.14159265
 
 #define WIN_WIDTH 1920/2
 #define WIN_HEIGHT 1050

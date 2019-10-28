@@ -5,10 +5,11 @@ App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
 	_lastTime(glfwGetTime()), _nbFrames(0),
 	// Only 2 decimals allowed on worldspeed, multiple of 2
-	_worldSpeed(0.1), _distMoved(0.0),
+	_worldSpeed(0.2), _distMoved(0.0),
 	// _camPos(glm::vec3(200, 200, 200)),
 	_camPos(glm::vec3(10, 10, 10)),
-	_hAngle(glm::radians(-135.0)), _vAngle(-0.6)
+	_hAngle(glm::radians(-135.0)), _vAngle(-0.6),
+	_jumpStart(0.0)
 {}
 
 
@@ -20,9 +21,9 @@ int App::setupScene()
 	// createNode("", "axisNode", "axis", "colored",
 	// 	"", glm::vec3(0, 1, 0));
 	// _sceneTree.scaleNode("axisNode", glm::vec3(0.4, 0.4, 0.4));
-	//
-	createNode("", "PlayerNode", "Player", "StandardShading",
-		"Player", glm::vec3(0, 1, 0));
+
+	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
+		"Player", glm::vec3(0, 0, 0));
 
 	createNode("", "terrainLeftNode", "rectFloor", "StandardShadingNoSpec",
 		"floortexture", glm::vec3(0, 0, 24));
@@ -42,6 +43,7 @@ int App::run()
 
 		// Change objs properties here
 		moveScenery();
+		handlePlayerMovement();
 
 		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
 		if (!this->computeMatricesFromInputs(true, 40.0f, true))

@@ -40,10 +40,10 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 			_camPos += right * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_A) == GLFW_PRESS)
 			_camPos -= right * _deltaTime * CAM_MOV_SPEED;
-		if (glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS)
-			_camPos += up * _deltaTime * CAM_MOV_SPEED;
-		if (glfwGetKey(_win, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		if (glfwGetKey(_win, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
 			_camPos -= up * _deltaTime * CAM_MOV_SPEED;
+		if (glfwGetKey(_win, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+			_camPos += up * _deltaTime * CAM_MOV_SPEED;
 	}
 
 	if (perspective_cam) {  // Projection matrix

@@ -11,6 +11,7 @@ int App::init() {
 	flag &= loadObjsLibrary();
 	flag &= loadTextureLibrary();
 
+	flag &= loadJumpKeyframes();
 	flag &= setupScene();
 
 	return flag;
@@ -107,4 +108,27 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 	}
 	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
 				tmpTexture, position);
+}
+
+
+int App::loadJumpKeyframes()
+{
+	_jumpKeyframes.push_back(0.05);
+	_jumpKeyframes.push_back(0.1);
+	_jumpKeyframes.push_back(0.3);
+	_jumpKeyframes.push_back(0.7);
+	_jumpKeyframes.push_back(1.0);
+	_jumpKeyframes.push_back(1.1);
+	_jumpKeyframes.push_back(1.2);
+	_jumpKeyframes.push_back(1.2);
+	_jumpKeyframes.push_back(1.1);
+	_jumpKeyframes.push_back(1.0);
+	_jumpKeyframes.push_back(0.7);
+	_jumpKeyframes.push_back(0.3);
+	_jumpKeyframes.push_back(0.1);
+	_jumpKeyframes.push_back(0.05);
+	_jumpKeyframes.push_back(0.0);
+	_jumpKeyframes.push_back(0.0);
+	_jumpKeyframes.push_back(0.0);
+	return SUCCESS;
 }

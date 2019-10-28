@@ -43,7 +43,9 @@ private:
 	int addProps();
 	int createRandomProp(std::string name, int x, int rand);
 
-
+	// Player
+	int loadJumpKeyframes();
+	int handlePlayerMovement();
 
 	// Utils
 	int _winWidth;
@@ -77,6 +79,11 @@ private:
 
 	// Decor
 	std::map<std::string, Node *> _sceneryNodes;
+
+	// Player
+	Node *_playerNode;
+	float _jumpStart;
+	std::vector<float> _jumpKeyframes;
 };
 
 #endif //APP_HPP
