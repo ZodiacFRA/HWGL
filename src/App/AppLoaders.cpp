@@ -35,6 +35,26 @@ int App::loadObjsLibrary()
 	tmpObj = new Obj("Player");
 	tmpObj->loadObj("./data/objs/Player.obj");
 	_objsLibrary.emplace("Player", tmpObj);
+
+	tmpObj = new Obj("obs0");
+	tmpObj->loadObj("./data/objs/obs0.obj");
+	_objsLibrary.emplace("obs0", tmpObj);
+
+	tmpObj = new Obj("obs1");
+	tmpObj->loadObj("./data/objs/obs1.obj");
+	_objsLibrary.emplace("obs1", tmpObj);
+
+	tmpObj = new Obj("obs2");
+	tmpObj->loadObj("./data/objs/obs2.obj");
+	_objsLibrary.emplace("obs2", tmpObj);
+
+	tmpObj = new Obj("obs3");
+	tmpObj->loadObj("./data/objs/obs3.obj");
+	_objsLibrary.emplace("obs3", tmpObj);
+
+	tmpObj = new Obj("obs4");
+	tmpObj->loadObj("./data/objs/obs4.obj");
+	_objsLibrary.emplace("obs4", tmpObj);
 	return SUCCESS;
 }
 

@@ -37,7 +37,12 @@ private:
 	int handleAspectRatio();
 
 	// Game
-	int moveFloor();
+	int moveScenery();
+	int moveFloor(glm::vec3 worldM);
+	int moveProps(glm::vec3 worldM);
+	int addProps();
+	int createRandomProp(std::string name, int x, int rand);
+
 
 
 	// Utils
