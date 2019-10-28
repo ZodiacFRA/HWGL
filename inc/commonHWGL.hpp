@@ -31,6 +31,9 @@
 
 #define PI 3.14159265
 
+#define PROP_SPAWN -24
+#define PROP_END 5
+
 #define WIN_WIDTH 1920/2
 #define WIN_HEIGHT 1050
 #define WIN_NAME "HWGL"

@@ -26,9 +26,9 @@ int App::setupScene()
 		"Player", glm::vec3(0, 0, 0));
 
 	createNode("", "terrainLeftNode", "rectFloor", "StandardShadingNoSpec",
-		"floortexture", glm::vec3(0, 0, 24));
+		"floortexture", glm::vec3(0, 0, 2 * PROP_SPAWN));
 	createNode("", "terrainRightNode", "rectFloor", "StandardShadingNoSpec",
-		"floortexture", glm::vec3(0, 0, -24));
+		"floortexture", glm::vec3(0, 0, PROP_SPAWN));
 	createNode("", "terrainMidNode", "rectFloor", "StandardShadingNoSpec",
 		"floortexture", glm::vec3(0, 0, 0));
 	return SUCCESS;
@@ -46,7 +46,7 @@ int App::run()
 		handlePlayerMovement();
 
 		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
-		if (!this->computeMatricesFromInputs(true, 40.0f, true))
+		if (!this->computeMatricesFromInputs(true, 40.0f, false))
 			return FAILURE;
 
 		_sceneTree.draw(_projectionMatrix, _viewMatrix);

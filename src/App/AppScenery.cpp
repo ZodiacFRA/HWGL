@@ -28,11 +28,13 @@ int App::addProps()
 {
 	std::string name(std::to_string(_distMoved));
 	int tmpRand = rand() % 10;
-	if (tmpRand >= 5) {  // Back
+	if (tmpRand >= 7) {  // Back
 		createRandomProp(name, 2, tmpRand % 5);
-	} else if (tmpRand <= 4) {  // Front
+	} else if (tmpRand <= 2) {  // Front
 		createRandomProp(name, -2, tmpRand % 5);
-	}
+	} else {
+	       createRandomProp(name, 0, tmpRand % 5);
+        }
 	return SUCCESS;
 }
 
@@ -54,7 +56,7 @@ int App::createRandomProp(std::string name, int x, int rand)
 
 	tmp = createNode("", name, objType,
 	"StandardShadingNoSpec", "cube",
-	glm::vec3(x, 0, -24));
+	glm::vec3(x, 0, 2 * PROP_SPAWN));
 	_sceneryNodes.emplace(name, tmp);
 	return SUCCESS;
 }
@@ -85,7 +87,7 @@ int App::moveProps(glm::vec3 worldM)
 	std::vector<std::string> toDelete;
 	for (auto it : _sceneryNodes) {
 		glm::mat4 mM = it.second->modelMatrix;
-		if (mM[3][2] > 12) {  // If out of screen
+		if (mM[3][2] > PROP_END) {  // If out of screen
 			_sceneTree.remove(it.first);
 			// Remove from _sceneryNodes as well
 			toDelete.push_back(it.first);

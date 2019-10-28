@@ -44,8 +44,9 @@ private:
 	int createRandomProp(std::string name, int x, int rand);
 
 	// Player
-	int loadJumpKeyframes();
 	int handlePlayerMovement();
+	int handleJump();
+	int handleMove();
 
 	// Utils
 	int _winWidth;
@@ -83,7 +84,6 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
-	std::vector<float> _jumpKeyframes;
 };
 
 #endif //APP_HPP
