@@ -6,32 +6,44 @@ int App::handlePlayerMovement()
 	handleJump();
 	handleMove();
 	// -1 / (1 + exp(x - 4)) + 1
-
 	return SUCCESS;
 }
 
 
 int App::handleMove()
 {
+	// Gotta figure how to prevent double move
 	static int moveDirection = 0;  // -1 = left, 0 = None, 1 = right
 	glm::vec3 playerPosMatrix = _playerNode->modelMatrix[3];
 
-	if (glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS)
+	bool goLeft = glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_PRESS;
+	bool goRight = glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_PRESS;
+	static bool hasReleasedLeft = true;
+	static bool hasReleasedRight = true;
+	hasReleasedLeft |= glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_RELEASE;
+	hasReleasedRight |= glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_RELEASE;
+
+	// std::cout << "-------------" << '\n';
+	// std::cout << goLeft << goRight << '\n';
+	// std::cout << hasReleasedLeft << hasReleasedRight << '\n';
+
+	if (goLeft && hasReleasedLeft && playerPosMatrix[0] != -2.0) {
 		moveDirection = -1;
-	else if (glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		hasReleasedLeft = false;
+	} else if (goRight && hasReleasedRight && playerPosMatrix[0] != 2.0) {
 		moveDirection = 1;
-	else if (playerPosMatrix[0] == -2.0 || playerPosMatrix[0] == 2.0 ||
-		(playerPosMatrix[0] >= -0.1 && playerPosMatrix[0] <= 0.1))
+		hasReleasedRight = false;
+	} else if (playerPosMatrix[0] == -2.0 || playerPosMatrix[0] == 2.0 ||
+		(playerPosMatrix[0] >= -0.1 && playerPosMatrix[0] <= 0.1)) {
 		moveDirection = 0;
-	if (moveDirection == -1 && playerPosMatrix[0] >= -2.0) {
-		_sceneTree.translateNode("PlayerNode",
-				glm::vec3(-0.2, 0, 0));
-	} else if (moveDirection == 1 && playerPosMatrix[0] <= 2.0) {
-			_sceneTree.translateNode("PlayerNode",
-					glm::vec3(0.2, 0, 0));
 	}
-
-
+	if (moveDirection == -1 && playerPosMatrix[0] > -1.9) {
+		_sceneTree.translateNode("PlayerNode",
+				glm::vec3(-0.4, 0, 0));
+	} else if (moveDirection == 1 && playerPosMatrix[0] <= 1.9) {
+			_sceneTree.translateNode("PlayerNode",
+					glm::vec3(0.4, 0, 0));
+	}
 	return SUCCESS;
 }
 
@@ -49,7 +61,7 @@ int App::handleJump()
 		}
 	} else {  // In a jump
 		float deltaT = _currentTime - _jumpStart;
-		float height = 2 * sin(10 * deltaT + ((3.3 * PI) / 2)) + 2;
+		float height = 1.5 * sin(12 * deltaT + ((3.3 * PI) / 2)) + 1.5;
 		_sceneTree.setNodePosition("PlayerNode",
 				glm::vec3(playerPosMatrix[0], height, 0));
 	}

@@ -14,6 +14,10 @@ int App::loadTextureLibrary()
 	tmpTex = new Texture();
 	tmpTex->loadTexture("./data/textures/cube.bmp", false);
 	_textureLibrary.emplace("cube", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/dev.bmp", false);
+	_textureLibrary.emplace("dev", tmpTex);
 	return SUCCESS;
 }
 
@@ -55,6 +59,18 @@ int App::loadObjsLibrary()
 	tmpObj = new Obj("obs4");
 	tmpObj->loadObj("./data/objs/obs4.obj");
 	_objsLibrary.emplace("obs4", tmpObj);
+
+	tmpObj = new Obj("point");
+	tmpObj->loadObj("./data/objs/point.obj");
+	_objsLibrary.emplace("point", tmpObj);
+
+	tmpObj = new Obj("bonus");
+	tmpObj->loadObj("./data/objs/bonus.obj");
+	_objsLibrary.emplace("bonus", tmpObj);
+
+	tmpObj = new Obj("malus");
+	tmpObj->loadObj("./data/objs/malus.obj");
+	_objsLibrary.emplace("malus", tmpObj);
 	return SUCCESS;
 }
 

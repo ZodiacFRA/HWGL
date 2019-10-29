@@ -5,7 +5,7 @@ int App::moveScenery()
 {
 	glm::vec3 worldMovmentM(0, 0, _worldSpeed);
 	moveFloor(worldMovmentM);
-	moveProps(worldMovmentM);
+	moveObjects(worldMovmentM);
 
 	_distMoved += _worldSpeed;
 	static float lastAddDistance = 0.0;
@@ -17,29 +17,59 @@ int App::moveScenery()
 	int tmpDist = static_cast<int>(std::round((_distMoved - lastAddDistance) * 100));
 	if (tmpDist % 200 == 0) {
 		addProps();
+		addBorders();
 		lastAddDistance = _distMoved;
 	}
-
 	return SUCCESS;
 }
 
 
 int App::addProps()
 {
-	std::string name(std::to_string(_distMoved));
 	int tmpRand = rand() % 10;
-	if (tmpRand >= 7) {  // Back
-		createRandomProp(name, 2, tmpRand % 5);
-	} else if (tmpRand <= 2) {  // Front
-		createRandomProp(name, -2, tmpRand % 5);
-	} else {
-	       createRandomProp(name, 0, tmpRand % 5);
-        }
+	std::string name(std::to_string(_distMoved));
+
+	if (tmpRand < 3)
+		createRandomProp(name.append("0"), 2);
+	if (tmpRand > 1 && tmpRand < 5)  // Front
+		createRandomProp(name.append("1"), -2);
+	if (tmpRand > 4 && tmpRand < 8)
+	       createRandomProp(name.append("2"), 0);
 	return SUCCESS;
 }
 
 
-int App::createRandomProp(std::string name, int x, int rand)
+int App::createRandomProp(std::string name, int x)
+{
+	Node *tmp;
+	std::string objType;
+	int tmpRand = rand() % 100;
+	if (tmpRand < 60)
+		objType = "point";
+	else if (tmpRand < 90)
+		objType = "malus";
+	else if (tmpRand < 100)
+		objType = "bonus";
+
+	tmp = createNode("", name, objType,
+	"StandardShadingNoSpec", "dev",
+	glm::vec3(x, 0, 2 * PROP_SPAWN));
+	_sceneryNodes.emplace(name, tmp);
+	return SUCCESS;
+}
+
+
+int App::addBorders()
+{
+	int tmpRand = rand() % 10;
+	std::string name(std::to_string(_distMoved));
+	createRandomBorder(name.append("L"), 4, tmpRand % 5);
+	createRandomBorder(name.append("R"), -4, tmpRand % 5);
+	return SUCCESS;
+}
+
+
+int App::createRandomBorder(std::string name, int x, int rand)
 {
 	Node *tmp;
 	std::string objType;
@@ -55,7 +85,7 @@ int App::createRandomProp(std::string name, int x, int rand)
 		objType = "obs4";
 
 	tmp = createNode("", name, objType,
-	"StandardShadingNoSpec", "cube",
+	"StandardShadingNoSpec", "dev",
 	glm::vec3(x, 0, 2 * PROP_SPAWN));
 	_sceneryNodes.emplace(name, tmp);
 	return SUCCESS;
@@ -68,11 +98,10 @@ int App::moveFloor(glm::vec3 worldM)
 	Node *mid = _sceneTree.getNode("terrainMidNode");
 	Node *right = _sceneTree.getNode("terrainRightNode");
 
-	if (mid->modelMatrix[3][2] >= 12) {
-		glm::vec3 tM(0, 0, -12);
-		left->modelMatrix = glm::translate(left->modelMatrix, tM);
-		mid->modelMatrix = glm::translate(mid->modelMatrix, tM);
-		right->modelMatrix = glm::translate(right->modelMatrix, tM);
+	if (left->modelMatrix[3][2] > 23.8) {  // reset pos
+		_sceneTree.setNodePosition("terrainLeftNode", glm::vec3(0, 0, 0));
+		_sceneTree.setNodePosition("terrainMidNode", glm::vec3(0, 0, PROP_SPAWN));
+		_sceneTree.setNodePosition("terrainRightNode", glm::vec3(0, 0, 2 * PROP_SPAWN));
 	} else {
 		left->modelMatrix = glm::translate(left->modelMatrix, worldM);
 		mid->modelMatrix = glm::translate(mid->modelMatrix, worldM);
@@ -82,7 +111,7 @@ int App::moveFloor(glm::vec3 worldM)
 }
 
 
-int App::moveProps(glm::vec3 worldM)
+int App::moveObjects(glm::vec3 worldM)
 {
 	std::vector<std::string> toDelete;
 	for (auto it : _sceneryNodes) {

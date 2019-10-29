@@ -7,8 +7,8 @@ App::App()			// RIGHT / HEIGHT / FRONT
 	// Only 2 decimals allowed on worldspeed, multiple of 2
 	_worldSpeed(0.2), _distMoved(0.0),
 	// _camPos(glm::vec3(200, 200, 200)),
-	_camPos(glm::vec3(10, 10, 10)),
-	_hAngle(glm::radians(-135.0)), _vAngle(-0.6),
+	_camPos(glm::vec3(0, 20, 10)),
+	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),
 	_jumpStart(0.0)
 {}
 
@@ -26,11 +26,11 @@ int App::setupScene()
 		"Player", glm::vec3(0, 0, 0));
 
 	createNode("", "terrainLeftNode", "rectFloor", "StandardShadingNoSpec",
-		"floortexture", glm::vec3(0, 0, 2 * PROP_SPAWN));
-	createNode("", "terrainRightNode", "rectFloor", "StandardShadingNoSpec",
-		"floortexture", glm::vec3(0, 0, PROP_SPAWN));
-	createNode("", "terrainMidNode", "rectFloor", "StandardShadingNoSpec",
 		"floortexture", glm::vec3(0, 0, 0));
+	createNode("", "terrainMidNode", "rectFloor", "StandardShadingNoSpec",
+		"floortexture", glm::vec3(0, 0, PROP_SPAWN));
+	createNode("", "terrainRightNode", "rectFloor", "StandardShadingNoSpec",
+		"floortexture", glm::vec3(0, 0, 2 * PROP_SPAWN));
 	return SUCCESS;
 }
 

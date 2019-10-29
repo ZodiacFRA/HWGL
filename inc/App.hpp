@@ -38,10 +38,12 @@ private:
 
 	// Game
 	int moveScenery();
-	int moveFloor(glm::vec3 worldM);
-	int moveProps(glm::vec3 worldM);
+	int addBorders();
 	int addProps();
-	int createRandomProp(std::string name, int x, int rand);
+	int moveFloor(glm::vec3 worldM);
+	int moveObjects(glm::vec3 worldM);
+	int createRandomProp(std::string name, int x);
+	int createRandomBorder(std::string name, int x, int rand);
 
 	// Player
 	int handlePlayerMovement();
