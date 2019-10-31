@@ -42,6 +42,8 @@ private:
 	int addProps();
 	int moveFloor(glm::vec3 worldM);
 	int moveObjects(glm::vec3 worldM);
+	int handleSingleObjMovement(std::pair<std::string, Node*> it,
+			glm::vec3 worldM, std::vector<std::string> &toDelete);
 	int createRandomProp(std::string name, int x);
 	int handleCollision(Node *Node);
 

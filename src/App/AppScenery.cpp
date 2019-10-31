@@ -107,36 +107,43 @@ int App::moveObjects(glm::vec3 worldM)
 {
 	std::vector<std::string> toDelete;
 	for (auto it : _sceneryNodes) {
-		glm::mat4 mM = it.second->modelMatrix;
-		if (mM[3][2] > PROP_END) {  // If out of screen
+		if (it.second->modelMatrix[3][2] > PROP_END) {  // If out of screen
 			_sceneTree.remove(it.first);
 			// Remove from _sceneryNodes as well
 			toDelete.push_back(it.first);
 		} else {  // Keep moving
-			it.second->modelMatrix = glm::translate(mM, worldM);
-			if (it.second->randomID != -1) { // Is a prop, not a border
-				if (handleCollision(it.second)) {
-					std::string ObjName = it.second->obj->_name;
-					if (ObjName == "bonus") {
-						_lives++;
-					} else if (ObjName == "point") {
-						_score++;
-					} else if (ObjName == "malus") {
-						_lives--;
-						_shake = true;
-						_shakeStartTime = _currentTime;
-					}
-					_sceneTree.remove(it.first);
-					// Remove from _sceneryNodes as well
-					toDelete.push_back(it.first);
-				} else {
-					float pos = 0.1 * sin(20 * _currentTime + it.second->randomID);
-					it.second->modelMatrix = glm::translate(it.second->modelMatrix, glm::vec3(0, pos, 0));
-				}
-			}
+			handleSingleObjMovement(it, worldM, toDelete);
 		}
 	}
 	for (auto it : toDelete)
 		_sceneryNodes.erase(it);
+	return SUCCESS;
+}
+
+
+int App::handleSingleObjMovement(std::pair<std::string, Node*> it,
+			glm::vec3 worldM, std::vector<std::string> &toDelete)
+{
+	it.second->modelMatrix = glm::translate(it.second->modelMatrix, worldM);
+	if (it.second->randomID != -1) { // Is a prop, not a border
+		if (handleCollision(it.second)) {
+			std::string ObjName = it.second->obj->_name;
+			if (ObjName == "bonus") {
+				_lives++;
+			} else if (ObjName == "point") {
+				_score++;
+			} else if (ObjName == "malus") {
+				_lives--;
+				_shake = true;
+				_shakeStartTime = _currentTime;
+			}
+			_sceneTree.remove(it.first);
+			// Remove from _sceneryNodes as well
+			toDelete.push_back(it.first);
+		} else {
+			float pos = 0.1 * sin(20 * _currentTime + it.second->randomID);
+			it.second->modelMatrix = glm::translate(it.second->modelMatrix, glm::vec3(0, pos, 0));
+		}
+	}
 	return SUCCESS;
 }
