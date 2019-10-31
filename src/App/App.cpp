@@ -9,7 +9,7 @@ App::App()			// RIGHT / HEIGHT / FRONT
 	// _camPos(glm::vec3(200, 200, 200)),
 	_camPos(glm::vec3(0, 20, 10)),
 	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),
-	_jumpStart(0.0), _lives(3), _score(0)
+	_jumpStart(0.0), _lives(3), _score(0), _shake(false)
 {}
 
 
@@ -40,7 +40,6 @@ int App::run()
 		// Change objs properties here
 		moveScenery();
 		handlePlayerMovement();
-
 
 		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
 		if (!this->computeMatricesFromInputs(true, 40.0f, false))

@@ -62,6 +62,15 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 				_camPos,             // Camera is here
 				_camPos + direction, // and looks here : at the same position, plus "direction"
 				up);                 // Head is up (set to 0,-1,0 to look upside-down)
+	} else if (_shake) {
+		int tmpRand = rand() % 10 - 5;
+		float final = float(tmpRand) / 10;
+		if (_currentTime - _shakeStartTime > 0.1)
+			_shake = false;
+		_viewMatrix = glm::lookAt(
+				_camPos,
+				glm::vec3(final, final, -6),
+				glm::vec3(0, 1, 0));
 	} else {
 		_viewMatrix = glm::lookAt(
 				_camPos,

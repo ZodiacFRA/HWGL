@@ -78,7 +78,7 @@ private:
 	double _xMouse;
 	double _yMouse;
 
- 	// TODO rename to _shadersLibrary
+	// TODO rename to _shadersLibrary
 	std::map<std::string, Shader *> _shadersLibrary;
 	std::map<std::string, Obj *> _objsLibrary;
 	std::map<std::string, Texture *> _textureLibrary;
@@ -102,6 +102,10 @@ private:
 	Texture _fontTexture;
 	Shader _fontShader;
 	float _fps;
+
+	// ShakeScreen
+	bool _shake;
+	double _shakeStartTime;
 };
 
 #endif //APP_HPP

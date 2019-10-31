@@ -117,14 +117,15 @@ int App::moveObjects(glm::vec3 worldM)
 			if (it.second->randomID != -1) { // Is a prop, not a border
 				if (handleCollision(it.second)) {
 					std::string ObjName = it.second->obj->_name;
-					if (ObjName == "bonus")
-						_score += 10;
-					else if (ObjName == "point")
+					if (ObjName == "bonus") {
+						_lives++;
+					} else if (ObjName == "point") {
 						_score++;
-					else if (ObjName == "malus")
+					} else if (ObjName == "malus") {
 						_lives--;
-					else
-						std::cout << "chelou le nom" << '\n';
+						_shake = true;
+						_shakeStartTime = _currentTime;
+					}
 					_sceneTree.remove(it.first);
 					// Remove from _sceneryNodes as well
 					toDelete.push_back(it.first);
