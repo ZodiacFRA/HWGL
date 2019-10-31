@@ -11,6 +11,7 @@ struct Node;
 struct Node {
 	std::string name;
 	glm::mat4 modelMatrix;
+	int randomID;  // Used for the random animation of the props
 
 	Node *parent;
 	std::vector<Node *> childs;
@@ -32,7 +33,8 @@ public:
 	virtual ~SceneTree();
 
 	Node *insert(std::string parentName, std::string name, Obj *obj,
-			Shader *shader, Texture *texture, glm::vec3 position);
+			Shader *shader, Texture *texture, glm::vec3 position,
+			int randomID=-1);
 	int remove(std::string nodeName);
 
 	Node *getNode(std::string nodeName);

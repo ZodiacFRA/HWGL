@@ -17,7 +17,8 @@ SceneTree::~SceneTree()
 
 
 Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
-			Shader *shader, Texture *texture, glm::vec3 position)
+			Shader *shader, Texture *texture, glm::vec3 position,
+			int randomID)
 {
 	if (_nodes.find(name) != _nodes.end()) {
 		printError("Node name already taken");
@@ -31,6 +32,7 @@ Node *SceneTree::insert(std::string parentName, std::string name, Obj *obj,
 	Node *newNode = new Node;
 	newNode->name = name;
 	newNode->modelMatrix = glm::translate(glm::mat4(1.0), position);
+	newNode->randomID = randomID;
 	newNode->parent = parentNode;
 	newNode->obj = obj;
 	newNode->shader = shader;

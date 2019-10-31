@@ -63,7 +63,7 @@ int App::run()
 
 App::~App()
 {
-	for (auto it : _shaders) {
+	for (auto it : _shadersLibrary) {
 		if (it.second)
 			delete it.second;
 	}

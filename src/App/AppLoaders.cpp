@@ -18,6 +18,18 @@ int App::loadTextureLibrary()
 	tmpTex = new Texture();
 	tmpTex->loadTexture("./data/textures/dev.bmp", false);
 	_textureLibrary.emplace("dev", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/point.bmp", false);
+	_textureLibrary.emplace("point", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/bonus.bmp", false);
+	_textureLibrary.emplace("bonus", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/red.bmp", false);
+	_textureLibrary.emplace("malus", tmpTex);
 	return SUCCESS;
 }
 
@@ -81,20 +93,20 @@ int App::initShaders()
 	tmpShader->loadShaders("./data/shaders/StandardShading/vs.glsl",
 				"./data/shaders/StandardShading/fs.glsl"
 	);
-	_shaders.emplace("StandardShading", tmpShader);
+	_shadersLibrary.emplace("StandardShading", tmpShader);
 
 
 	tmpShader = new Shader();
 	tmpShader->loadShaders("./data/shaders/colored/vs.glsl",
 				"./data/shaders/colored/fs.glsl"
 	);
-	_shaders.emplace("colored", tmpShader);
+	_shadersLibrary.emplace("colored", tmpShader);
 
 	tmpShader = new Shader();
 	tmpShader->loadShaders("./data/shaders/StandardShadingNoSpec/vs.glsl",
 				"./data/shaders/StandardShadingNoSpec/fs.glsl"
 	);
-	_shaders.emplace("StandardShadingNoSpec", tmpShader);
+	_shadersLibrary.emplace("StandardShadingNoSpec", tmpShader);
 
 	return SUCCESS;
 }

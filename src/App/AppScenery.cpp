@@ -34,7 +34,7 @@ int App::addProps()
 	if (tmpRand > 1 && tmpRand < 5)  // Front
 		createRandomProp(name.append("1"), -2);
 	if (tmpRand > 4 && tmpRand < 8)
-	       createRandomProp(name.append("2"), 0);
+		createRandomProp(name.append("2"), 0);
 	return SUCCESS;
 }
 
@@ -51,9 +51,8 @@ int App::createRandomProp(std::string name, int x)
 	else if (tmpRand < 100)
 		objType = "bonus";
 
-	tmp = createNode("", name, objType,
-	"StandardShadingNoSpec", "dev",
-	glm::vec3(x, 0, 2 * PROP_SPAWN));
+	tmp = createNode("", name, objType, "StandardShadingNoSpec", objType,
+			glm::vec3(x, 0.2, 2 * PROP_SPAWN), rand() % 10);
 	_sceneryNodes.emplace(name, tmp);
 	return SUCCESS;
 }
@@ -84,9 +83,8 @@ int App::createRandomBorder(std::string name, int x, int rand)
 	if (rand == 4)
 		objType = "obs4";
 
-	tmp = createNode("", name, objType,
-	"StandardShadingNoSpec", "dev",
-	glm::vec3(x, 0, 2 * PROP_SPAWN));
+	tmp = createNode("", name, objType, "StandardShadingNoSpec", "dev",
+			glm::vec3(x, 0, 2 * PROP_SPAWN));
 	_sceneryNodes.emplace(name, tmp);
 	return SUCCESS;
 }
@@ -122,6 +120,10 @@ int App::moveObjects(glm::vec3 worldM)
 			toDelete.push_back(it.first);
 		} else {  // Keep moving
 			it.second->modelMatrix = glm::translate(mM, worldM);
+			if (it.second->randomID != -1) { // Is a prop, not a border
+				float pos = 0.1 * sin(20 * _currentTime + it.second->randomID);
+				it.second->modelMatrix = glm::translate(it.second->modelMatrix, glm::vec3(0, pos, 0));
+			}
 		}
 	}
 	for (auto it : toDelete)

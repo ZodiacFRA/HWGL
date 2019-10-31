@@ -28,7 +28,7 @@ private:
 	int setupScene();
 	Node *createNode(std::string parentNodeName, std::string nodeName,
 			std::string objName, std::string shaderName,
-			std::string textureName, glm::vec3 position);
+			std::string textureName, glm::vec3 position, int randomID=-1);
 
 	int computeMatricesFromInputs(bool perspective_cam, float fov,
 					bool controlled);
@@ -75,7 +75,7 @@ private:
 	double _yMouse;
 
  	// TODO rename to _shadersLibrary
-	std::map<std::string, Shader *> _shaders;
+	std::map<std::string, Shader *> _shadersLibrary;
 	std::map<std::string, Obj *> _objsLibrary;
 	std::map<std::string, Texture *> _textureLibrary;
 	SceneTree _sceneTree;

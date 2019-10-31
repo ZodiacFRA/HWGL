@@ -75,7 +75,7 @@ int App::initVertexArray()
 
 Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		std::string objName, std::string shaderName,
-		std::string textureName, glm::vec3 position)
+		std::string textureName, glm::vec3 position, int randomID)
 {
 	Obj *tmpObj = NULL;
 	auto it = _objsLibrary.find(objName);
@@ -87,8 +87,8 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 	}
 
 	Shader *tmpShader = NULL;
-	auto it1 = _shaders.find(shaderName);
-	if (it1 != _shaders.end()) {
+	auto it1 = _shadersLibrary.find(shaderName);
+	if (it1 != _shadersLibrary.end()) {
 		tmpShader = it1->second;
 	} else {
 		printError("Can't create node (Shader does not exist)");
@@ -106,5 +106,5 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		}
 	}
 	return _sceneTree.insert(parentNodeName, nodeName, tmpObj, tmpShader,
-				tmpTexture, position);
+				tmpTexture, position, randomID);
 }

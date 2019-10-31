@@ -22,6 +22,10 @@ int App::handleMove()
 	static bool hasReleasedRight = true;
 	hasReleasedLeft |= glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_RELEASE;
 	hasReleasedRight |= glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_RELEASE;
+	// if (hasReleasedLeft)
+	// 	goLeft = false;
+	// if (hasReleasedRight)
+	// 	goRight = false;
 
 	// std::cout << "-------------" << '\n';
 	// std::cout << goLeft << goRight << '\n';
