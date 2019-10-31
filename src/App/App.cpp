@@ -36,7 +36,8 @@ int App::run()
 	sf::Music music;
 	if (!music.openFromFile("./data/sounds/music.wav"))
 		return FAILURE;
-	music.play();
+	if (true)
+		music.play();
 	do {
 		handleTime();
 		// if (static_cast<int>(std::round(_distMoved)) % 1000 == 0) {

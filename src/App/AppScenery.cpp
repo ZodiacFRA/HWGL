@@ -129,10 +129,10 @@ int App::handleSingleObjMovement(std::pair<std::string, Node*> it,
 		if (handleCollision(it.second)) {
 			std::string ObjName = it.second->obj->_name;
 			if (ObjName == "bonus") {
-				_lives++;
+				_score++;
 				playSound("bonus");
 			} else if (ObjName == "point") {
-				_score++;
+				_score--;
 				playSound("point");
 			} else if (ObjName == "malus") {
 				_lives--;
