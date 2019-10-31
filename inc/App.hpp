@@ -108,6 +108,9 @@ private:
 	// ShakeScreen
 	bool _shake;
 	double _shakeStartTime;
+
+	// Sounds
+	std::map<std::string, sf::SoundBuffer> _soundLibrary;
 };
 
 #endif //APP_HPP

@@ -26,6 +26,8 @@
 #include <GLFW/glfw3.h>
 #include <glm.hpp>
 
+#include <SFML/Audio.hpp>
+
 #define FAILURE 0
 #define SUCCESS 1
 
