@@ -5,9 +5,9 @@ App::App()			// RIGHT / HEIGHT / FRONT
 	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
 	_lastTime(glfwGetTime()), _nbFrames(0),
 	// Only 2 decimals allowed on worldspeed, multiple of 2
-	_worldSpeed(0.2), _distMoved(0.0),
+	_worldSpeed(0.25), _distMoved(0.0),
 	// _camPos(glm::vec3(200, 200, 200)),
-	_camPos(glm::vec3(0, 20, 10)),
+	_camPos(glm::vec3(0, 15, 10)),
 	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),
 	_jumpStart(0.0), _lives(3), _score(0), _shake(false)
 {}
@@ -35,6 +35,10 @@ int App::run()
 {
 	do {
 		handleTime();
+		// if (static_cast<int>(std::round(_distMoved)) % 1000 == 0) {
+		// 	_worldSpeed += 0.2;
+		// 	std::cout << "BUFF" << '\n';
+		// }
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Change objs properties here

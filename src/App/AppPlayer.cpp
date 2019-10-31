@@ -48,6 +48,7 @@ int App::handleMove()
 			_sceneTree.translateNode("PlayerNode",
 					glm::vec3(0.4, 0, 0));
 	}
+	_camPos = glm::vec3(-playerPosMatrix[0] / 7, 15 + playerPosMatrix[1], 10);
 	return SUCCESS;
 }
 
