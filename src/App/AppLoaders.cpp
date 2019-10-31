@@ -28,7 +28,7 @@ int App::loadTextureLibrary()
 	_textureLibrary.emplace("bonus", tmpTex);
 
 	tmpTex = new Texture();
-	tmpTex->loadTexture("./data/textures/red.bmp", false);
+	tmpTex->loadTexture("./data/textures/malus.bmp", false);
 	_textureLibrary.emplace("malus", tmpTex);
 
 	tmpTex = new Texture();

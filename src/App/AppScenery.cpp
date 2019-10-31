@@ -52,7 +52,7 @@ int App::createRandomProp(std::string name, int x)
 		objType = "bonus";
 
 	tmp = createNode("", name, objType, "StandardShadingNoSpec", objType,
-			glm::vec3(x, 0.2, 2 * PROP_SPAWN), rand() % 10);
+			glm::vec3(x, 0.2, 2 * PROP_SPAWN), rand() % 100);
 	_sceneryNodes.emplace(name, tmp);
 	return SUCCESS;
 }
