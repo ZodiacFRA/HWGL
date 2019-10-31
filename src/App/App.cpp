@@ -18,10 +18,6 @@ int App::setupScene()
 	// Node name, Obj name, Shader name, Texture name, Position
 	// 1 openGL unit = 1m in Blender
 
-	// createNode("", "axisNode", "axis", "colored",
-	// 	"", glm::vec3(0, 1, 0));
-	// _sceneTree.scaleNode("axisNode", glm::vec3(0.4, 0.4, 0.4));
-
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
 		"Player", glm::vec3(0, 0, 0));
 
@@ -45,11 +41,18 @@ int App::run()
 		moveScenery();
 		handlePlayerMovement();
 
+
 		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
-		if (!this->computeMatricesFromInputs(true, 40.0f, true))
+		if (!this->computeMatricesFromInputs(true, 40.0f, false))
 			return FAILURE;
 
 		_sceneTree.draw(_projectionMatrix, _viewMatrix);
+
+		// Draw Text
+		char text[256];
+		sprintf(text,"abcdefgh");
+		// sprintf(text,"%.2f sec", glfwGetTime());
+		printText2D(text, 0, _winHeight / 2 - 60, 60);
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
@@ -76,5 +79,6 @@ App::~App()
 			delete it.second;
 	}
 	glDeleteVertexArrays(1, &_vertexArrayID);
+	cleanupText2D();
 	glfwTerminate();
 }

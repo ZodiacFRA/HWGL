@@ -8,7 +8,7 @@ class Texture {
 public:
 	~Texture();
 	int setupDraw(GLuint programID);
-	int loadTexture(const char *t_path, bool enableFiltering);
+	GLuint loadTexture(const char *t_path, bool enableFiltering);
 
 private:
 	GLuint _texture;

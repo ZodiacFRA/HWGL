@@ -5,7 +5,7 @@
 
 class Shader {
 public:
-	int loadShaders(const char *v_path, const char *f_path);
+	GLuint loadShaders(const char *v_path, const char *f_path);
 	virtual ~Shader();
 
 	int setupDraw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix,

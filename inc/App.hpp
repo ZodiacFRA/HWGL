@@ -7,7 +7,6 @@
 #include "SceneTree.hpp"
 #include "Texture.hpp"
 
-
 class App {
 public:
 	App();
@@ -20,6 +19,7 @@ private:
 	int initGLFW();
 	int initGLEW();
 	int initVertexArray();
+	int initTexture2D();
 
 	int initShaders();
 	int loadObjsLibrary();
@@ -48,6 +48,10 @@ private:
 	int handlePlayerMovement();
 	int handleJump();
 	int handleMove();
+
+	// Fonts
+	void printText2D(const char * text, int x, int y, int size);
+	void cleanupText2D();
 
 	// Utils
 	int _winWidth;
@@ -85,6 +89,15 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
+
+	// Fonts
+	unsigned int _text2DTextureID;
+	unsigned int _text2DVertexBufferID;
+	unsigned int _text2DUVBufferID;
+	unsigned int _text2DShaderID;
+	unsigned int _text2DUniformID;
+	Texture _fontTexture;
+	Shader _fontShader;
 };
 
 #endif //APP_HPP

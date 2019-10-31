@@ -15,7 +15,7 @@ int Texture::setupDraw(GLuint programID)
 }
 
 
-int Texture::loadTexture(const char *t_path, bool enableFiltering)
+GLuint Texture::loadTexture(const char *t_path, bool enableFiltering)
 {
 	// If texture done with gimp:
 	// export BMP as 24bits without colour space information
@@ -83,7 +83,7 @@ int Texture::loadTexture(const char *t_path, bool enableFiltering)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	}
-	return SUCCESS;
+	return _texture;
 }
 
 

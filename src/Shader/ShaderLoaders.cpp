@@ -1,7 +1,7 @@
 #include "Shader.hpp"
 
 
-int Shader::loadShaders(const char *v_path, const char *f_path)
+GLuint Shader::loadShaders(const char *v_path, const char *f_path)
 {
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
@@ -35,7 +35,7 @@ int Shader::loadShaders(const char *v_path, const char *f_path)
 	glDeleteShader(FragmentShaderID);
 
 	initMatricesIDs();
-	return SUCCESS;
+	return _programID;
 }
 
 

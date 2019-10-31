@@ -11,17 +11,18 @@ set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 set(GL_SRC_DIR "${PROJECT_SOURCE_DIR}/src/GL")
 
 set(SRC_FILES
-        ${SRC_DIR}/main.cpp
+	${SRC_DIR}/main.cpp
 	${SRC_DIR}/utils.cpp
 	${SRC_DIR}/Texture.cpp
 
-        ${SRC_DIR}/App/App.cpp
-        ${SRC_DIR}/App/AppInits.cpp
-        ${SRC_DIR}/App/AppControls.cpp
-        ${SRC_DIR}/App/AppUtils.cpp
-        ${SRC_DIR}/App/AppLoaders.cpp
-        ${SRC_DIR}/App/AppScenery.cpp
-        ${SRC_DIR}/App/AppPlayer.cpp
+	${SRC_DIR}/App/App.cpp
+	${SRC_DIR}/App/AppInits.cpp
+	${SRC_DIR}/App/AppControls.cpp
+	${SRC_DIR}/App/AppUtils.cpp
+	${SRC_DIR}/App/AppLoaders.cpp
+	${SRC_DIR}/App/AppScenery.cpp
+	${SRC_DIR}/App/AppPlayer.cpp
+	${SRC_DIR}/App/AppText2D.cpp
 
 	${SRC_DIR}/Obj/Obj.cpp
 	${SRC_DIR}/Obj/ObjLoaders.cpp

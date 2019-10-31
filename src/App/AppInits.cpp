@@ -6,6 +6,7 @@ int App::init() {
 	flag &= initGLFW();
 	flag &= initGLEW();
 	flag &= initVertexArray();
+	flag &= initTexture2D();
 
 	flag &= initShaders();
 	flag &= loadObjsLibrary();
@@ -14,6 +15,22 @@ int App::init() {
 	flag &= setupScene();
 
 	return flag;
+}
+
+
+int App::initTexture2D()
+{
+	// Initialize texture
+	_text2DTextureID = _fontTexture.loadTexture("./data/fonts/Iosevka.bmp", false);
+	// Initialize VBO
+	glGenBuffers(1, &_text2DVertexBufferID);
+	glGenBuffers(1, &_text2DUVBufferID);
+	// Initialize Shader
+	_text2DShaderID = _fontShader.loadShaders("./data/shaders/TextShader/TextVertexShader.vertexshader",
+				"./data/shaders/TextShader/TextVertexShader.fragmentshader" );
+	// Initialize uniforms' IDs
+	_text2DUniformID = glGetUniformLocation(_text2DShaderID, "myTextureSampler");
+	return SUCCESS;
 }
 
 
