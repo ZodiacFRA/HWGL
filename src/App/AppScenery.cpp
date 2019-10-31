@@ -115,8 +115,23 @@ int App::moveObjects(glm::vec3 worldM)
 		} else {  // Keep moving
 			it.second->modelMatrix = glm::translate(mM, worldM);
 			if (it.second->randomID != -1) { // Is a prop, not a border
-				float pos = 0.1 * sin(20 * _currentTime + it.second->randomID);
-				it.second->modelMatrix = glm::translate(it.second->modelMatrix, glm::vec3(0, pos, 0));
+				if (handleCollision(it.second)) {
+					std::string ObjName = it.second->obj->_name;
+					if (ObjName == "bonus")
+						_score += 10;
+					else if (ObjName == "point")
+						_score++;
+					else if (ObjName == "malus")
+						_lives--;
+					else
+						std::cout << "chelou le nom" << '\n';
+					_sceneTree.remove(it.first);
+					// Remove from _sceneryNodes as well
+					toDelete.push_back(it.first);
+				} else {
+					float pos = 0.1 * sin(20 * _currentTime + it.second->randomID);
+					it.second->modelMatrix = glm::translate(it.second->modelMatrix, glm::vec3(0, pos, 0));
+				}
 			}
 		}
 	}

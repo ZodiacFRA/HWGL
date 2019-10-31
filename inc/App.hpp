@@ -43,6 +43,7 @@ private:
 	int moveFloor(glm::vec3 worldM);
 	int moveObjects(glm::vec3 worldM);
 	int createRandomProp(std::string name, int x);
+	int handleCollision(Node *Node);
 
 	// Player
 	int handlePlayerMovement();
@@ -90,6 +91,7 @@ private:
 	Node *_playerNode;
 	float _jumpStart;
 	int _lives;
+	int _score;
 
 	// Fonts
 	unsigned int _text2DTextureID;

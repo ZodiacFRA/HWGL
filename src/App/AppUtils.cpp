@@ -1,6 +1,20 @@
 #include "App.hpp"
 
 
+int App::handleCollision(Node *Node)
+{
+	glm::vec3 objPos = Node->modelMatrix[3];
+	glm::vec3 playerPos = _playerNode->modelMatrix[3];
+	float hitboxSize = 1.2;
+	if (objPos[2] > -1 * hitboxSize && objPos[2] < hitboxSize &&
+		objPos[0] > playerPos[0] - hitboxSize && objPos[0] < playerPos[0] + hitboxSize &&
+		objPos[1] > playerPos[1]) {
+		return SUCCESS;
+	}
+	return FAILURE;
+}
+
+
 int App::handleAspectRatio()
 {
 	// Handles window resize, I successfully change the aspectRatio
