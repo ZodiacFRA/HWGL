@@ -9,7 +9,7 @@ App::App()			// RIGHT / HEIGHT / FRONT
 	// _camPos(glm::vec3(200, 200, 200)),
 	_camPos(glm::vec3(0, 20, 10)),
 	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),
-	_jumpStart(0.0)
+	_jumpStart(0.0), _lives(3)
 {}
 
 
@@ -51,7 +51,7 @@ int App::run()
 		// Draw Text
 		char text[256];
 		// sprintf(text,"Je suis con");
-		sprintf(text,"%.2f FPS", _fps);
+		sprintf(text,"Score:%d Lives:%d", static_cast<int>(std::round(_distMoved)), _lives);
 		printText2D(text, 0, 570, 20);
 
 		// Swap buffers

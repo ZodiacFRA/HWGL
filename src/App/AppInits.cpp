@@ -20,7 +20,8 @@ int App::init() {
 
 int App::initTexture2D()
 {
-	// Initialize texture
+	// Use https://www.codehead.co.uk/cbfg/ to create bmp from font
+	// then mirror it upside down (no joke) with gimp
 	_text2DTextureID = _fontTexture.loadTexture("./data/fonts/Iosevka.bmp", false);
 	// Initialize VBO
 	glGenBuffers(1, &_text2DVertexBufferID);

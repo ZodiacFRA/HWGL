@@ -89,6 +89,7 @@ private:
 	// Player
 	Node *_playerNode;
 	float _jumpStart;
+	int _lives;
 
 	// Fonts
 	unsigned int _text2DTextureID;
