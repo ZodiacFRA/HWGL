@@ -46,7 +46,7 @@ int App::run()
 		handlePlayerMovement();
 
 		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
-		if (!this->computeMatricesFromInputs(true, 40.0f, false))
+		if (!this->computeMatricesFromInputs(true, 40.0f, true))
 			return FAILURE;
 
 		_sceneTree.draw(_projectionMatrix, _viewMatrix);

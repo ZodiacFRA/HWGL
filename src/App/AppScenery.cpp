@@ -60,31 +60,25 @@ int App::createRandomProp(std::string name, int x)
 
 int App::addBorders()
 {
-	int tmpRand = rand() % 10;
 	std::string name(std::to_string(_distMoved));
-	createRandomBorder(name.append("L"), 4, tmpRand % 5);
-	createRandomBorder(name.append("R"), -4, tmpRand % 5);
-	return SUCCESS;
-}
-
-
-int App::createRandomBorder(std::string name, int x, int rand)
-{
-	Node *tmp;
 	std::string objType;
-	if (rand == 0)
+	std::string tex;
+	Node *tmp;
+	// Left
+	int tmpRand = rand() % 2;
+	if (tmpRand) {
 		objType = "obs0";
-	if (rand == 1)
+		tex = "dev";
+	} else {
 		objType = "obs1";
-	if (rand == 2)
-		objType = "obs2";
-	if (rand == 3)
-		objType = "obs3";
-	if (rand == 4)
-		objType = "obs4";
-
-	tmp = createNode("", name, objType, "StandardShadingNoSpec", "dev",
-			glm::vec3(x, 0, 2 * PROP_SPAWN));
+		tex = "dBlue";
+	}
+	tmp = createNode("", name, objType.append("L"), "StandardShading", tex,
+				glm::vec3(-3, 0, 2 * PROP_SPAWN));
+	_sceneryNodes.emplace(name, tmp);
+	objType.pop_back();
+	tmp = createNode("", name.append("R"), objType.append("R"), "StandardShading", tex,
+				glm::vec3(3, 0, 2 * PROP_SPAWN));
 	_sceneryNodes.emplace(name, tmp);
 	return SUCCESS;
 }

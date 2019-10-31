@@ -30,6 +30,10 @@ int App::loadTextureLibrary()
 	tmpTex = new Texture();
 	tmpTex->loadTexture("./data/textures/red.bmp", false);
 	_textureLibrary.emplace("malus", tmpTex);
+
+	tmpTex = new Texture();
+	tmpTex->loadTexture("./data/textures/dBlue.bmp", false);
+	_textureLibrary.emplace("dBlue", tmpTex);
 	return SUCCESS;
 }
 
@@ -52,25 +56,21 @@ int App::loadObjsLibrary()
 	tmpObj->loadObj("./data/objs/Player.obj");
 	_objsLibrary.emplace("Player", tmpObj);
 
-	tmpObj = new Obj("obs0");
-	tmpObj->loadObj("./data/objs/obs0.obj");
-	_objsLibrary.emplace("obs0", tmpObj);
+	tmpObj = new Obj("obs0L");
+	tmpObj->loadObj("./data/objs/obs0L.obj");
+	_objsLibrary.emplace("obs0L", tmpObj);
 
-	tmpObj = new Obj("obs1");
-	tmpObj->loadObj("./data/objs/obs1.obj");
-	_objsLibrary.emplace("obs1", tmpObj);
+	tmpObj = new Obj("obs1L");
+	tmpObj->loadObj("./data/objs/obs1L.obj");
+	_objsLibrary.emplace("obs1L", tmpObj);
 
-	tmpObj = new Obj("obs2");
-	tmpObj->loadObj("./data/objs/obs2.obj");
-	_objsLibrary.emplace("obs2", tmpObj);
+	tmpObj = new Obj("obs0R");
+	tmpObj->loadObj("./data/objs/obs0R.obj");
+	_objsLibrary.emplace("obs0R", tmpObj);
 
-	tmpObj = new Obj("obs3");
-	tmpObj->loadObj("./data/objs/obs3.obj");
-	_objsLibrary.emplace("obs3", tmpObj);
-
-	tmpObj = new Obj("obs4");
-	tmpObj->loadObj("./data/objs/obs4.obj");
-	_objsLibrary.emplace("obs4", tmpObj);
+	tmpObj = new Obj("obs1R");
+	tmpObj->loadObj("./data/objs/obs1R.obj");
+	_objsLibrary.emplace("obs1R", tmpObj);
 
 	tmpObj = new Obj("point");
 	tmpObj->loadObj("./data/objs/point.obj");
