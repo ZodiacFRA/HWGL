@@ -69,6 +69,7 @@ int App::run()
 
 App::~App()
 {
+	std::cout << "test" << '\n';
 	for (auto it : _shadersLibrary) {
 		if (it.second)
 			delete it.second;
