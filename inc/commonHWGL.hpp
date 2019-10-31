@@ -35,11 +35,10 @@
 #define PROP_END 5
 
 #define WIN_WIDTH 1920/2
-#define WIN_HEIGHT 1050
+#define WIN_HEIGHT 1052
 #define WIN_NAME "HWGL"
 
 #define BG_COLOR 0, 0, 0, 0
-#define FPS_PRINT_INTERVAL 4.0
 
 #define CAM_MOV_SPEED 60.0f
 #define MOUSE_MOV_SPEED 0.0001f

@@ -27,8 +27,8 @@ void App::handleTime()
 	// FPS counter
 	_nbFrames++;
 	static float lastFrameTime = glfwGetTime();
-	if (_currentTime - lastFrameTime >= FPS_PRINT_INTERVAL) {
-		printf("%f fps\n", float(_nbFrames) / (_currentTime - lastFrameTime));
+	if (_currentTime - lastFrameTime >= 0.1) {
+		_fps = float(_nbFrames) / (_currentTime - lastFrameTime);
 		_nbFrames = 0;
 		lastFrameTime = _currentTime;
 	}

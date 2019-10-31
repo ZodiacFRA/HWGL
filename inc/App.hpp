@@ -98,6 +98,7 @@ private:
 	unsigned int _text2DUniformID;
 	Texture _fontTexture;
 	Shader _fontShader;
+	float _fps;
 };
 
 #endif //APP_HPP

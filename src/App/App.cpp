@@ -50,9 +50,9 @@ int App::run()
 
 		// Draw Text
 		char text[256];
-		sprintf(text,"abcdefgh");
-		// sprintf(text,"%.2f sec", glfwGetTime());
-		printText2D(text, 0, _winHeight / 2 - 60, 60);
+		// sprintf(text,"Je suis con");
+		sprintf(text,"%.2f FPS", _fps);
+		printText2D(text, 0, 570, 20);
 
 		// Swap buffers
 		glfwSwapBuffers(_win);
