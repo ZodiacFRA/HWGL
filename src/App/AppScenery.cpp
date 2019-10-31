@@ -130,12 +130,15 @@ int App::handleSingleObjMovement(std::pair<std::string, Node*> it,
 			std::string ObjName = it.second->obj->_name;
 			if (ObjName == "bonus") {
 				_lives++;
+				playSound("bonus");
 			} else if (ObjName == "point") {
 				_score++;
+				playSound("point");
 			} else if (ObjName == "malus") {
 				_lives--;
 				_shake = true;
 				_shakeStartTime = _currentTime;
+				playSound("bump");
 			}
 			_sceneTree.remove(it.first);
 			// Remove from _sceneryNodes as well

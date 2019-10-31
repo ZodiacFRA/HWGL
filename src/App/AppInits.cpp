@@ -11,6 +11,7 @@ int App::init() {
 	flag &= initShaders();
 	flag &= loadObjsLibrary();
 	flag &= loadTextureLibrary();
+	flag &= loadSoundLibrary();
 
 	flag &= setupScene();
 

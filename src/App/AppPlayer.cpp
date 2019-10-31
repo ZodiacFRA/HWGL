@@ -32,11 +32,13 @@ int App::handleMove()
 	// std::cout << hasReleasedLeft << hasReleasedRight << '\n';
 
 	if (goLeft && hasReleasedLeft && playerPosMatrix[0] != -2.0) {
+		// playSound("move");
 		moveDirection = -1;
 		hasReleasedLeft = false;
 	} else if (goRight && hasReleasedRight && playerPosMatrix[0] != 2.0) {
 		moveDirection = 1;
 		hasReleasedRight = false;
+		// playSound("move");
 	} else if (playerPosMatrix[0] == -2.0 || playerPosMatrix[0] == 2.0 ||
 		(playerPosMatrix[0] >= -0.1 && playerPosMatrix[0] <= 0.1)) {
 		moveDirection = 0;
@@ -60,6 +62,7 @@ int App::handleJump()
 	bool jumpFlag = glfwGetKey(_win, GLFW_KEY_SPACE) == GLFW_PRESS;
 	if (playerPosMatrix[1] < 0.1) {  // Can jump
 		if (jumpFlag) {
+			playSound("jump");
 			_jumpStart = _currentTime;
 			_sceneTree.setNodePosition("PlayerNode",
 				glm::vec3(playerPosMatrix[0], 0.1, 0));

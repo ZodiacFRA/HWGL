@@ -1,6 +1,14 @@
 #include "App.hpp"
 
 
+int App::playSound(std::string sampleName)
+{
+	_sound.setBuffer(_soundLibrary[sampleName]);
+	_sound.play();
+	return SUCCESS;
+}
+
+
 int App::handleCollision(Node *Node)
 {
 	glm::vec3 objPos = Node->modelMatrix[3];

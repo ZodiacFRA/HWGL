@@ -24,6 +24,7 @@ private:
 	int initShaders();
 	int loadObjsLibrary();
 	int loadTextureLibrary();
+	int loadSoundLibrary();
 
 	int setupScene();
 	Node *createNode(std::string parentNodeName, std::string nodeName,
@@ -55,6 +56,9 @@ private:
 	// Fonts
 	void printText2D(const char * text, int x, int y, int size);
 	void cleanupText2D();
+
+	// Sounds
+	int playSound(std::string sampleName);
 
 	// Utils
 	int _winWidth;
@@ -111,6 +115,7 @@ private:
 
 	// Sounds
 	std::map<std::string, sf::SoundBuffer> _soundLibrary;
+	sf::Sound _sound;
 };
 
 #endif //APP_HPP

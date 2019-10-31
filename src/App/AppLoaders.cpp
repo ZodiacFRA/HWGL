@@ -1,6 +1,32 @@
 #include "App.hpp"
 
 
+int App::loadSoundLibrary()
+{
+	sf::SoundBuffer tmpBuffer;
+	if (!tmpBuffer.loadFromFile("./data/sounds/jump.wav"))
+		return FAILURE;
+	_soundLibrary.emplace("jump", tmpBuffer);
+
+	if (!tmpBuffer.loadFromFile("./data/sounds/bump.wav"))
+		return FAILURE;
+	_soundLibrary.emplace("bump", tmpBuffer);
+
+	if (!tmpBuffer.loadFromFile("./data/sounds/move.wav"))
+		return FAILURE;
+	_soundLibrary.emplace("move", tmpBuffer);
+
+	if (!tmpBuffer.loadFromFile("./data/sounds/bonus.wav"))
+		return FAILURE;
+	_soundLibrary.emplace("bonus", tmpBuffer);
+
+	if (!tmpBuffer.loadFromFile("./data/sounds/point.wav"))
+		return FAILURE;
+	_soundLibrary.emplace("point", tmpBuffer);
+	return SUCCESS;
+}
+
+
 int App::loadTextureLibrary()
 {
 	Texture *tmpTex = new Texture();
