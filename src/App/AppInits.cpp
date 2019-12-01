@@ -1,7 +1,9 @@
 #include "App.hpp"
 
 
-int App::init() {
+int App::init()
+{
+	// Master initialization function
 	int flag = SUCCESS;
 	flag &= initGLFW();
 	flag &= initGLEW();
@@ -30,7 +32,7 @@ int App::initTexture2D()
 	// Initialize Shader
 	_text2DShaderID = _fontShader.loadShaders("./data/shaders/TextShader/TextVertexShader.vertexshader",
 				"./data/shaders/TextShader/TextVertexShader.fragmentshader" );
-	// Initialize uniforms' IDs
+	// Initialize uniforms IDs
 	_text2DUniformID = glGetUniformLocation(_text2DShaderID, "myTextureSampler");
 	return SUCCESS;
 }
@@ -98,6 +100,7 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 {
 	Obj *tmpObj = NULL;
 	auto it = _objsLibrary.find(objName);
+	// Add .obj to the node
 	if (it != _objsLibrary.end()) {
 		tmpObj = it->second;
 	} else {
@@ -105,6 +108,7 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		return NULL;
 	}
 
+	// Add shader to the node
 	Shader *tmpShader = NULL;
 	auto it1 = _shadersLibrary.find(shaderName);
 	if (it1 != _shadersLibrary.end()) {
@@ -114,6 +118,7 @@ Node *App::createNode(std::string parentNodeName, std::string nodeName,
 		return NULL;
 	}
 
+	// Add texture to the node
 	Texture *tmpTexture = NULL;
 	if (textureName != "") {
 		auto it2 = _textureLibrary.find(textureName);

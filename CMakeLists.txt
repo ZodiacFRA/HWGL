@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(hwgl)
 
 set(CMAKE_CXX_STANDARD 14)
-set(SFML_DIR "/home/zodiac/Code/HW/HWGL/libraries/SFML-2.5.1/lib/cmake/SFML")
+set(SFML_DIR "/home/zodiac/Code/HW/3D/HWGL/libraries/SFML-2.5.1/lib/cmake/SFML")
 
 set(INC_DIR "${PROJECT_SOURCE_DIR}/inc")
 set(GL_INC_DIR "${PROJECT_SOURCE_DIR}/inc/GL")
@@ -39,12 +39,7 @@ set(GL_SRC_FILES
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
-find_package(GLUT REQUIRED)
 find_package(SFML 2.5 COMPONENTS audio system REQUIRED)
-
-if(SFML_FOUND)
-	message("trouvééé")
-endif()
 
 include_directories(
 	"${PROJECT_SOURCE_DIR}/libraries/glm-0.9.9.6/glm"
@@ -52,7 +47,6 @@ include_directories(
 	${INC_DIR}
 	${GLEW_INCLUDE_DIRS}
 	${OPENGL_INCLUDE_DIRS}
-	${GLUT_INCLUDE_DIRS}
 	${SFML_INCLUDE_DIR}
 )
 
@@ -63,8 +57,7 @@ add_executable(${PROJECT_NAME} ${SRC_FILES} ${GL_SRC_FILES})
 target_link_libraries(${PROJECT_NAME}
 	${OPENGL_LIBRARIES}
 	${GLEW_LIBRARIES}
-	${GLUT_LIBRARY}
 	sfml-audio
-	sfml-system 
+	sfml-system
 	glfw
 )

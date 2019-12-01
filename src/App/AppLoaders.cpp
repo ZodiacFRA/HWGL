@@ -134,5 +134,11 @@ int App::initShaders()
 	);
 	_shadersLibrary.emplace("StandardShadingNoSpec", tmpShader);
 
+	tmpShader = new Shader();
+	tmpShader->loadShaders("./data/shaders/StandardShadingNoSpec/vs.glsl",
+				"./data/shaders/ShaderToy/fs.glsl"
+	);
+	_shadersLibrary.emplace("ShaderToy", tmpShader);
+
 	return SUCCESS;
 }

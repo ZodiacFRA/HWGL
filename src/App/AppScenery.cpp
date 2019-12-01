@@ -26,6 +26,7 @@ int App::moveScenery()
 
 int App::addProps()
 {
+	// Create random items
 	int tmpRand = rand() % 10;
 	std::string name(std::to_string(_distMoved));
 
@@ -60,6 +61,7 @@ int App::createRandomProp(std::string name, int x)
 
 int App::addBorders()
 {
+	// Create random props at the borders of the scenery
 	std::string name(std::to_string(_distMoved));
 	std::string objType;
 	std::string tex;
@@ -86,6 +88,7 @@ int App::addBorders()
 
 int App::moveFloor(glm::vec3 worldM)
 {
+	// Scenery movement handling
 	Node *left = _sceneTree.getNode("terrainLeftNode");
 	Node *mid = _sceneTree.getNode("terrainMidNode");
 	Node *right = _sceneTree.getNode("terrainRightNode");

@@ -12,7 +12,6 @@ int App::handlePlayerMovement()
 
 int App::handleMove()
 {
-	// Gotta figure how to prevent double move
 	static int moveDirection = 0;  // -1 = left, 0 = None, 1 = right
 	glm::vec3 playerPosMatrix = _playerNode->modelMatrix[3];
 
@@ -22,11 +21,12 @@ int App::handleMove()
 	static bool hasReleasedRight = true;
 	hasReleasedLeft |= glfwGetKey(_win, GLFW_KEY_LEFT) == GLFW_RELEASE;
 	hasReleasedRight |= glfwGetKey(_win, GLFW_KEY_RIGHT) == GLFW_RELEASE;
+
+	// Double move patch
 	// if (hasReleasedLeft)
 	// 	goLeft = false;
 	// if (hasReleasedRight)
 	// 	goRight = false;
-
 	// std::cout << "-------------" << '\n';
 	// std::cout << goLeft << goRight << '\n';
 	// std::cout << hasReleasedLeft << hasReleasedRight << '\n';
@@ -50,6 +50,7 @@ int App::handleMove()
 			_sceneTree.translateNode("PlayerNode",
 					glm::vec3(0.4, 0, 0));
 	}
+	// Change camera pos with player movement
 	_camPos = glm::vec3(-playerPosMatrix[0] / 7, 15 + playerPosMatrix[1], 10);
 	return SUCCESS;
 }
@@ -67,7 +68,7 @@ int App::handleJump()
 			_sceneTree.setNodePosition("PlayerNode",
 				glm::vec3(playerPosMatrix[0], 0.1, 0));
 		}
-	} else {  // In a jump
+	} else {  // Already in a jump
 		float deltaT = _currentTime - _jumpStart;
 		float height = 1.5 * sin(12 * deltaT + ((3.3 * PI) / 2)) + 1.5;
 		_sceneTree.setNodePosition("PlayerNode",

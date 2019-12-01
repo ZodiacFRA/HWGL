@@ -1,15 +1,14 @@
 #include "App.hpp"
 
 
-App::App()			// RIGHT / HEIGHT / FRONT
-	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),
-	_lastTime(glfwGetTime()), _nbFrames(0),
+App::App()
+	: _winWidth(WIN_WIDTH), _winHeight(WIN_HEIGHT),  // store win size to handle resize
+	_lastTime(glfwGetTime()), _nbFrames(0),  // speed handling
 	// Only 2 decimals allowed on worldspeed, multiple of 2
 	_worldSpeed(0.25), _distMoved(0.0),
-	// _camPos(glm::vec3(200, 200, 200)),
-	_camPos(glm::vec3(0, 15, 10)),
-	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),
-	_jumpStart(0.0), _lives(5), _score(0), _shake(false)
+	_camPos(glm::vec3(0, 15, 10)),  // RIGHT / HEIGHT / FRONT
+	_hAngle(glm::radians(-180.0)), _vAngle(-0.8),  // camera lookat
+	_jumpStart(0.0), _lives(5), _score(0), _shake(false)  // Game parameters
 {}
 
 
@@ -21,11 +20,11 @@ int App::setupScene()
 	_playerNode = createNode("", "PlayerNode", "Player", "StandardShading",
 		"Player", glm::vec3(0, 0, 0));
 
-	createNode("", "terrainLeftNode", "rectFloor", "StandardShadingNoSpec",
+	createNode("", "terrainLeftNode", "rectFloor", "StandardShading",
 		"floortexture", glm::vec3(0, 0, 0));
-	createNode("", "terrainMidNode", "rectFloor", "StandardShadingNoSpec",
+	createNode("", "terrainMidNode", "rectFloor", "StandardShading",
 		"floortexture", glm::vec3(0, 0, PROP_SPAWN));
-	createNode("", "terrainRightNode", "rectFloor", "StandardShadingNoSpec",
+	createNode("", "terrainRightNode", "rectFloor", "StandardShading",
 		"floortexture", glm::vec3(0, 0, 2 * PROP_SPAWN));
 	return SUCCESS;
 }
@@ -40,25 +39,19 @@ int App::run()
 		music.play();
 	do {
 		handleTime();
-		// if (static_cast<int>(std::round(_distMoved)) % 1000 == 0) {
-		// 	_worldSpeed += 0.2;
-		// 	std::cout << "BUFF" << '\n';
-		// }
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// Change objs properties here
-		moveScenery();
+		moveScenery();  // Handle scenery scrolling
 		handlePlayerMovement();
 
-		// if (!this->computeMatricesFromInputs(true, 2.0f, true))
+		// if (!this->computeMatricesFromInputs(true, 100.0f, true))
 		if (!this->computeMatricesFromInputs(true, 40.0f, false))
 			return FAILURE;
 
 		_sceneTree.draw(_projectionMatrix, _viewMatrix);
 
-		// Draw Text
+		// Draw info text
 		char text[256];
-		// sprintf(text,"Je suis con");
 		sprintf(text,"Score:%d Lives:%d", _score, _lives);
 		printText2D(text, 0, 570, 20);
 
@@ -74,6 +67,7 @@ int App::run()
 
 App::~App()
 {
+	// Properly delete all assets libraries
 	for (auto it : _shadersLibrary) {
 		if (it.second)
 			delete it.second;
@@ -86,6 +80,7 @@ App::~App()
 		if (it.second)
 			delete it.second;
 	}
+	// Properly delete all GL attributes and buffers
 	glDeleteVertexArrays(1, &_vertexArrayID);
 	cleanupText2D();
 	glfwTerminate();

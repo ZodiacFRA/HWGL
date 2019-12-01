@@ -20,7 +20,6 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 		sin(_vAngle),
 		cos(_vAngle) * cos(_hAngle)
 	);
-	// printVec3(direction);
 	// Right vector
 	glm::vec3 right = glm::vec3(
 		sin(_hAngle - 3.14f / 2.0f),
@@ -30,8 +29,8 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 	// Up vector
 	glm::vec3 up = glm::cross(right, direction);
 
+	// Handle key inputs for cam movement
 	if (controlled) {
-		// Handle key inputs for cam movement
 		if (glfwGetKey(_win, GLFW_KEY_W) == GLFW_PRESS)
 			_camPos += direction * _deltaTime * CAM_MOV_SPEED;
 		if (glfwGetKey(_win, GLFW_KEY_S) == GLFW_PRESS)
@@ -53,7 +52,6 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 					float(_winWidth) / float(_winHeight),
 					0.01f, 5000.0f);
 	} else {
-		// Does not work
 		// limits left, right, bottom, top, display range
 		_projectionMatrix = glm::ortho(0, 400, 0, 400, -1, 1);
 	}
@@ -62,7 +60,7 @@ int App::computeMatricesFromInputs(bool perspective_cam, float fov,
 				_camPos,             // Camera is here
 				_camPos + direction, // and looks here : at the same position, plus "direction"
 				up);                 // Head is up (set to 0,-1,0 to look upside-down)
-	} else if (_shake) {
+	} else if (_shake) {  // screen shake effect
 		int tmpRand = rand() % 10 - 5;
 		float final = float(tmpRand) / 10;
 		if (_currentTime - _shakeStartTime > 0.1)
