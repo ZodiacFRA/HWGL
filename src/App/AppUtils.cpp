@@ -40,7 +40,7 @@ int App::handleAspectRatio()
 }
 
 
-void App::handleTime()
+int App::handleTime()
 {
 	_currentTime = glfwGetTime();
 	_deltaTime = _currentTime - _lastTime;
@@ -49,9 +49,11 @@ void App::handleTime()
 	// FPS counter
 	_nbFrames++;
 	static float lastFrameTime = glfwGetTime();
-	if (_currentTime - lastFrameTime >= 0.1) {
+	if (_currentTime - lastFrameTime >= 0.01) {
 		_fps = float(_nbFrames) / (_currentTime - lastFrameTime);
 		_nbFrames = 0;
 		lastFrameTime = _currentTime;
+		return true;
 	}
+	return false;
 }

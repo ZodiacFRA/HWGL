@@ -34,7 +34,7 @@ private:
 	int computeMatricesFromInputs(bool perspective_cam, float fov,
 					bool controlled);
 
-	void handleTime();
+	int handleTime();
 	int handleAspectRatio();
 
 	// Game

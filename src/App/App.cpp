@@ -38,26 +38,27 @@ int App::run()
 	if (true)
 		music.play();
 	do {
-		handleTime();
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (handleTime()) {
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		moveScenery();  // Handle scenery scrolling
-		handlePlayerMovement();
+			moveScenery();  // Handle scenery scrolling
+			handlePlayerMovement();
 
-		// if (!this->computeMatricesFromInputs(true, 100.0f, true))
-		if (!this->computeMatricesFromInputs(true, 40.0f, false))
-			return FAILURE;
+			// if (!this->computeMatricesFromInputs(true, 100.0f, true))
+			if (!this->computeMatricesFromInputs(true, 40.0f, false))
+				return FAILURE;
 
-		_sceneTree.draw(_projectionMatrix, _viewMatrix);
+			_sceneTree.draw(_projectionMatrix, _viewMatrix);
 
-		// Draw info text
-		char text[256];
-		sprintf(text,"Score:%d Lives:%d", _score, _lives);
-		printText2D(text, 0, 570, 20);
+			// Draw info text
+			char text[256];
+			sprintf(text,"Score:%d Lives:%d", _score, _lives);
+			printText2D(text, 0, 570, 20);
 
-		// Swap buffers
-		glfwSwapBuffers(_win);
-		glfwPollEvents();
+			// Swap buffers
+			glfwSwapBuffers(_win);
+			glfwPollEvents();
+		}
 	} // Check if the ESC key was pressed or the window was closed
 	while (glfwGetKey(_win, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
 		!glfwWindowShouldClose(_win));
